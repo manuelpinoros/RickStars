@@ -8,8 +8,8 @@ import SwiftUI
 import CacheKit
 
 struct CachedAsyncImage<Placeholder: View>: View {
-    let url: URL
     var cache: ImageCache
+    let url: URL
     let placeholder: Placeholder
     
     @State private var image: UIImage?
