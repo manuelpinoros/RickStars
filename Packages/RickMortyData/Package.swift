@@ -3,7 +3,7 @@ import PackageDescription
 
 let package = Package(
     name: "RickMortyData",
-    platforms: [.iOS(.v16)],
+    platforms: [.iOS(.v17)],
     products: [.library(name: "RickMortyData", targets: ["RickMortyData"])],
     dependencies: [
         .package(path: "../NetworkKit"),
