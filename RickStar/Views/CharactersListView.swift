@@ -27,26 +27,20 @@ struct CharactersListView: View {
                 }
                 .onTapGesture { router.pushDetail(character) }
         }
-        .listRowSeparator(.hidden, edges: .all)
+        .scrollIndicators(.hidden)
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
         .navigationTitle(NSLocalizedString("RickStar", comment: ""))
         .overlay {
             if vm.isLoading && vm.items.isEmpty { ProgressView() }
         }
         .searchable(text: $searchText, prompt: "Search characters")
         .onSubmit(of: .search) {
-            vm.clearAll()
-            cache.removeAll()
-            Task {
-                await vm.search(name: searchText)
-            }
+            performSearch()
         }
         .onChange(of: searchText, { oldValue, newValue in
             if newValue.isEmpty {
-                vm.clearAll()
-                cache.removeAll()
-                Task {
-                    await vm.search(name: "")
-                }
+                resetSearch()
             }
         })
         .alert("Error",
@@ -61,5 +55,18 @@ struct CharactersListView: View {
                    Text(vm.uiError ?? "")
                })
         .task { await vm.load() }
+    }
+    
+    // MARK: - Helpers
+    private func performSearch() {
+        vm.clearAll()
+        cache.removeAll()
+        Task { await vm.search(name: searchText) }
+    }
+
+    private func resetSearch() {
+        vm.clearAll()
+        cache.removeAll()
+        Task { await vm.search(name: "") }
     }
 }

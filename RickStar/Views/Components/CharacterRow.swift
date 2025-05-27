@@ -27,6 +27,7 @@ struct CharacterRow: View {
                                  species: character.species,
                                  lastSeen: character.location.name)
             
+            
             .padding(.leading, 8)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
