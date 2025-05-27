@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct CharacterRowTextData: View {
+    
     let name: String
     let origin: String
     let species: String

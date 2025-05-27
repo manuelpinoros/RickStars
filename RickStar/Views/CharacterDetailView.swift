@@ -9,10 +9,11 @@ import RickMortyDomain
 import RickMortyData
 
 struct CharacterDetailView: View {
-    let character: Character
+    
     @State private var episodes: [Episode] = []
     @State private var episodesError: String? = nil
     private let episodeRepo = DefaultEpisodeRepository()
+    let character: Character
     
     var body: some View {
         
@@ -25,7 +26,8 @@ struct CharacterDetailView: View {
             }
             .frame(width: 160, height: 160)
             .clipShape(Circle())
-            .statusBorderCircle(CharacterStatus(rawValue: character.status.lowercased()) ?? .unknown, lineWidth: 4)
+            .statusBorderCircle(CharacterStatus(rawValue: character.status.lowercased()) ?? .unknown,
+                                lineWidth: 4)
             .frame(maxWidth: .infinity)
             
             ScrollView(.vertical, showsIndicators: false) {
@@ -75,7 +77,7 @@ struct CharacterDetailView: View {
                             .font(.headline)
                             .padding(.top, 8)
                         
-                        EpisodesListView(episodes: episodes)
+                        EpisodesList(episodes: episodes)
                     } else {
                         DetailRow(
                             title: "Not found",

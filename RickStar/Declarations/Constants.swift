@@ -6,7 +6,6 @@
 //
 import SwiftUI
 
-
 enum CharacterStatus: String {
     case alive = "alive"
     case dead = "dead"

@@ -9,6 +9,7 @@ import RickMortyDomain
 import CacheKit
 
 struct CharacterRow: View {
+    
     let character: Character
     let cache: ImageCache
     

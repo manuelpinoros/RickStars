@@ -6,6 +6,7 @@ import NetworkKit
 @MainActor
 @Observable
 final class CharactersListViewModel {
+    
     private var connectivity = NetworkMonitor.shared
     private(set) var items: [Character] = []
     private(set) var isLoading = false

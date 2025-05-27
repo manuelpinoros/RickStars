@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct DetailRow: View {
+    
     let title: String
     let value: String
 

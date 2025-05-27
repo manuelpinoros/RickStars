@@ -7,7 +7,6 @@
 import SwiftUI
 import Foundation
 
-
 //MARK: Circular character status color border
 struct StatusBorderCircle: ViewModifier {
     let status: CharacterStatus

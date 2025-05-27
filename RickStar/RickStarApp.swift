@@ -10,6 +10,7 @@ import RickMortyData
 
 @main
 struct RickStarApp: App {
+    
     private let repo = DefaultCharacterRepository()
     @State private var router = Router()
 

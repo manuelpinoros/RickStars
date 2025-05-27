@@ -8,7 +8,8 @@ import SwiftUI
 import RickMortyData
 import RickMortyDomain
 
-struct EpisodesListView: View {
+struct EpisodesList: View {
+    
     let episodes: [Episode]
 
     var body: some View {
@@ -27,7 +28,6 @@ struct EpisodesListView: View {
                     Rectangle()
                         .fill(Color.indigo)
                         .frame(height: 2)
-                        //.padding(.leading, 16)
                 }
             }
         }
