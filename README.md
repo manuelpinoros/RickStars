@@ -24,6 +24,7 @@ RickStars is a demo iOS app that leverages the free Rick & Morty API to display 
 
 ## Project Structure
 
+```
 .
 ├── Packages
 │   ├── CacheKit
