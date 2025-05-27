@@ -11,7 +11,7 @@ import CacheKit
 struct CharacterRow: View {
     let character: Character
     let cache: ImageCache
-
+    
     public var body: some View {
         HStack {
             CachedAsyncImage(url: character.image, cache: cache) {
@@ -21,39 +21,11 @@ struct CharacterRow: View {
             .frame(width: 100, height: 100)
             .statusBorderCircle(CharacterStatus(rawValue: character.status.lowercased()) ?? .unknown, lineWidth: 4)
             
+            CharacterRowTextData(name: character.name,
+                                 origin: character.origin.name,
+                                 species: character.species,
+                                 lastSeen: character.location.name)
             
-            
-            VStack(alignment: .leading) {
-               // Group(){
-                    Text(character.name).font(.headline)
-                        .padding(.top, 8)
-                HStack(alignment: .top,spacing: 5){
-                        Text("Origin: ").font(.subheadline)
-                        Text(character.origin.name)
-                            .font(.subheadline)
-                            .lineLimit(2)
-                            .truncationMode(.tail)
-                    }
-                
-                    HStack(spacing: 5){
-                        Text("Specie: ").font(.subheadline)
-                        Text(character.species).font(.subheadline)
-                    }
-                
-                //if character.status == CharacterStatus.dead.rawValue {
-                    HStack(alignment: .top,spacing: 5){
-                            Text("Last seen: ").font(.subheadline)
-                            Text(character.location.name)
-                                .font(.subheadline)
-                                .lineLimit(2)
-                                .truncationMode(.tail)
-                        }
-                //}
-                //}
-                
-                Spacer()
-                
-            }
             .padding(.leading, 8)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
