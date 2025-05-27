@@ -19,7 +19,7 @@ struct CharacterRowTextData: View {
                 .font(.headline)
                 .padding(.top, 8)
             HStack(alignment: .top,spacing: 5){
-                Text("Origin: ").font(.subheadline)
+                Text("Origin:").font(.subheadline)
                 Text(origin.isEmpty ? "Unknown" : origin)
                     .font(.subheadline)
                     .lineLimit(2)
@@ -27,13 +27,13 @@ struct CharacterRowTextData: View {
             }
             
             HStack(spacing: 5){
-                Text("Specie: ").font(.subheadline)
+                Text("Specie:").font(.subheadline)
                 Text(species.isEmpty ? "Unknown" : species)
                     .font(.subheadline)
             }
             
             HStack(alignment: .top,spacing: 5){
-                Text("Last seen: ").font(.subheadline)
+                Text("Last seen:").font(.subheadline)
                 Text(lastSeen.isEmpty ? "Unknown" : lastSeen)
                     .font(.subheadline)
                     .lineLimit(2)

@@ -40,28 +40,28 @@ struct CharacterDetailView: View {
                     
                     Group {
                         DetailRow(
-                            title: "Status:",
+                            title: "Status:".localized,
                             value: character.status
                         )
                         DetailRow(
-                            title: "Species:",
-                            value: character.species.isEmpty ? "Unknown" : character.species
+                            title: "Specie:".localized,
+                            value: character.species.isEmpty ? "Unknown".localized : character.species
                         )
                         DetailRow(
-                            title: "Type:",
-                            value: character.type.isEmpty ? "Unknown" : character.type
+                            title: "Type:".localized,
+                            value: character.type.isEmpty ? "Unknown".localized : character.type
                         )
                         DetailRow(
-                            title: "Origin:",
-                            value: character.origin.name.isEmpty ? "Unknown" : character.origin.name
+                            title: "Origin:".localized,
+                            value: character.origin.name.isEmpty ? "Unknown".localized : character.origin.name
                         )
                         DetailRow(
-                            title: "Last seen at:",
-                            value: character.location.name.isEmpty ? "Unknown" : character.location.name
+                            title: "Last seen:".localized,
+                            value: character.location.name.isEmpty ? "Unknown".localized : character.location.name
                         )
                         DetailRow(
-                            title: "Appear in:",
-                            value: "\(episodes.count) episodes"
+                            title: "Appear in:".localized,
+                            value: "\(episodes.count) " +  "episodes".localized
                         )
                     }
                 }
