@@ -6,9 +6,13 @@
 //
 import SwiftUI
 import RickMortyDomain
+import RickMortyData
 
 struct CharacterDetailView: View {
     let character: Character
+    @State private var episodes: [Episode] = []
+    @State private var episodesError: String? = nil
+    private let episodeRepo = DefaultEpisodeRepository()
     
     var body: some View {
         
@@ -54,23 +58,64 @@ struct CharacterDetailView: View {
                         )
                         DetailRow(
                             title: "Appear in:",
-                            value: "\(character.episode.count)"
+                            value: "\(episodes.count) episodes"
                         )
                     }
                 }
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.cyan.opacity(0.4))
+                        .innerRoundedBorder(color: .indigo, lineWidth: 4, cornerRadius: 12)
+                )
+                
+                VStack(alignment: .leading, spacing: 16) {
+                    if !episodes.isEmpty {
+                        Text("Episodes:")
+                            .font(.headline)
+                            .padding(.top, 8)
+                        
+                        EpisodesListView(episodes: episodes)
+                    } else {
+                        DetailRow(
+                            title: "Not found",
+                            value: " at any episode"
+                        )
+                    }
+                }
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.cyan.opacity(0.4))
+                        .innerRoundedBorder(color: .indigo, lineWidth: 4, cornerRadius: 12)
+                )
             }
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(Color.cyan.opacity(0.4))
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.indigo, lineWidth: 2)
-            )
         }
         .padding()
         .navigationTitle(character.name)
         .navigationBarTitleDisplayMode(.inline)
+        .alert("Error",
+               isPresented: Binding<Bool>(
+                   get: { episodesError != nil },
+                   set: { if !$0 { episodesError = nil } }
+               ),
+               actions: {
+                   Button("OK") { episodesError = nil }
+               },
+               message: {
+                   Text(episodesError ?? "")
+               })
+        .task {
+            if episodes.isEmpty {
+                let ids: [Int] = character.episode
+                    .compactMap { URL(string: $0)?.lastPathComponent }
+                    .compactMap(Int.init)
+                do {
+                    episodes = try await episodeRepo.episodes(ids: ids)
+                } catch {
+                    episodesError = error.localizedDescription
+                }
+            }
+        }
     }
 }
