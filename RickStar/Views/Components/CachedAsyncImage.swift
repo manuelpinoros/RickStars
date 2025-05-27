@@ -8,11 +8,14 @@ import SwiftUI
 import CacheKit
 
 struct CachedAsyncImage<Placeholder: View>: View {
-    var cache: ImageCache
+
+    @State private var image: UIImage?
+    
     let url: URL
     let placeholder: Placeholder
-    
-    @State private var image: UIImage?
+    let imageWidth: CGFloat = 100
+    let imageHeight: CGFloat = 100
+    var cache: ImageCache
     
     init(url: URL,
          cache: ImageCache,
@@ -33,6 +36,7 @@ struct CachedAsyncImage<Placeholder: View>: View {
         if let uiImage = image {
             Image(uiImage: uiImage)
                 .resizable()
+                .frame(width: imageWidth, height: imageHeight)
                 .clipShape(Circle())
         } else {
             placeholder

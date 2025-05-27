@@ -12,7 +12,7 @@ import CacheKit
 
 struct CharactersListView: View {
     @State var vm: CharactersListViewModel
-    @EnvironmentObject var router: Router
+    @Environment(Router.self) var router: Router
     private let cache: ImageCache = MemoryImageCache()
 
     var body: some View {
@@ -49,7 +49,7 @@ private struct CharacterRow: View {
         HStack {
             CachedAsyncImage(url: character.image, cache: cache) {
                 Image(systemName: "person.crop.circle")
-                    .frame(width: 56, height: 56)
+                    .frame(width: 100, height: 100)
             }
             VStack(alignment: .leading) {
                 Text(character.name).font(.headline)

@@ -9,17 +9,13 @@ import Network
 import Combine
 
 @MainActor
-@Observable
-public final class NetworkMonitor{
-
-    //Simple singleton to check network
+public final class NetworkMonitor: ObservableObject {
     public static let shared = NetworkMonitor()
-    
-    public var isConnected: Bool = true
-    public private(set) var interfaceType: NWInterface.InterfaceType?
-    
     private let monitor = NWPathMonitor()
     private let queue   = DispatchQueue(label: "NetworkMonitorQueue")
+    
+    @Published public private(set) var isConnected: Bool = true
+    @Published public private(set) var interfaceType: NWInterface.InterfaceType?
     
     private init() {
         monitor.pathUpdateHandler = { [weak self] path in
