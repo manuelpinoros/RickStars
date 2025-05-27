@@ -6,20 +6,20 @@
 //
 import SwiftUI
 import RickMortyDomain
-import RickMortyData
 
 struct CharacterDetailView: View {
     
-    @State private var episodes: [Episode] = []
-    @State private var episodesError: String? = nil
     @Environment(\.dismiss) private var dismiss
-    private let episodeRepo = DefaultEpisodeRepository()
-    let character: Character
+    @State private var vm: CharacterDetailViewModel
+    
+    init(character: Character) {
+        _vm = State(wrappedValue: CharacterDetailViewModel(character: character))
+    }
     
     var body: some View {
         
         VStack(alignment: .leading, spacing: 16) {
-            AsyncImage(url: character.image) { phase in
+            AsyncImage(url: vm.character.image) { phase in
                 switch phase {
                 case .success(let img): img.resizable()
                 default: ProgressView()
@@ -27,58 +27,26 @@ struct CharacterDetailView: View {
             }
             .frame(width: 160, height: 160)
             .clipShape(Circle())
-            .statusBorderCircle(CharacterStatus(rawValue: character.status.lowercased()) ?? .unknown,
+            .statusBorderCircle(CharacterStatus(rawValue: vm.character.status.lowercased()) ?? .unknown,
                                 lineWidth: 4)
             .frame(maxWidth: .infinity)
             
             ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 16) {
-                    Text(character.name)
-                        .font(.largeTitle)
-                        .bold()
-                        .frame(maxWidth: .infinity, alignment: .center)
-                    
-                    Group {
-                        DetailRow(
-                            title: "Status:".localized,
-                            value: character.status
-                        )
-                        DetailRow(
-                            title: "Specie:".localized,
-                            value: character.species.isEmpty ? "Unknown".localized : character.species
-                        )
-                        DetailRow(
-                            title: "Type:".localized,
-                            value: character.type.isEmpty ? "Unknown".localized : character.type
-                        )
-                        DetailRow(
-                            title: "Origin:".localized,
-                            value: character.origin.name.isEmpty ? "Unknown".localized : character.origin.name
-                        )
-                        DetailRow(
-                            title: "Last seen:".localized,
-                            value: character.location.name.isEmpty ? "Unknown".localized : character.location.name
-                        )
-                        DetailRow(
-                            title: "Appear in:".localized,
-                            value: "\(episodes.count) " +  "episodes".localized
-                        )
-                    }
-                }
-                .padding()
-                .background(
-                    RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.cyan.opacity(0.4))
-                        .innerRoundedBorder(color: .indigo, lineWidth: 4, cornerRadius: 12)
-                )
+                CharacterDetailTextData(name: vm.character.name,
+                                        status: vm.character.status,
+                                        specie: vm.character.species,
+                                        typeRM: vm.character.type,
+                                        originRM: vm.character.origin.name,
+                                        lastSeen: vm.character.location.name,
+                                        appearIn: vm.episodes.count)
                 
                 VStack(alignment: .leading, spacing: 16) {
-                    if !episodes.isEmpty {
+                    if !vm.episodes.isEmpty {
                         Text("Episodes:")
                             .font(.headline)
                             .padding(.top, 8)
                         
-                        EpisodesList(episodes: episodes)
+                        EpisodesList(episodes: vm.episodes)
                     } else {
                         DetailRow(
                             title: "Not found",
@@ -95,7 +63,7 @@ struct CharacterDetailView: View {
             }
         }
         .padding()
-        .navigationTitle(character.name)
+        .navigationTitle(vm.character.name)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -110,26 +78,15 @@ struct CharacterDetailView: View {
         }
         .alert("Error",
                isPresented: Binding<Bool>(
-                   get: { episodesError != nil },
-                   set: { if !$0 { episodesError = nil } }
+                   get: { vm.episodesError != nil },
+                   set: { if !$0 { vm.episodesError = nil } }
                ),
                actions: {
-                   Button("OK") { episodesError = nil }
+                   Button("OK") { vm.episodesError = nil }
                },
                message: {
-                   Text(episodesError ?? "")
+                   Text(vm.episodesError ?? "")
                })
-        .task {
-            if episodes.isEmpty {
-                let ids: [Int] = character.episode
-                    .compactMap { URL(string: $0)?.lastPathComponent }
-                    .compactMap(Int.init)
-                do {
-                    episodes = try await episodeRepo.episodes(ids: ids)
-                } catch {
-                    episodesError = error.localizedDescription
-                }
-            }
-        }
+        .task { await vm.loadEpisodes() }
     }
 }
