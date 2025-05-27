@@ -22,7 +22,7 @@ struct EpisodesList: View {
                         .font(.subheadline)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.vertical, 8)
+                .padding(.vertical, standardPadding)
 
                 if ep.id != episodes.last?.id {
                     Rectangle()

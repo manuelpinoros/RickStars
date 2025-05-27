@@ -6,6 +6,14 @@
 //
 import SwiftUI
 
+let standardPadding: CGFloat = 8
+let standardRadius: CGFloat = 8
+
+enum ButtonShape{
+    case circle
+    case rounded
+}
+
 enum CharacterStatus: String {
     case alive = "alive"
     case dead = "dead"

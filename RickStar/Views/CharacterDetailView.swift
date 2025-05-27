@@ -44,20 +44,20 @@ struct CharacterDetailView: View {
                     if !vm.episodes.isEmpty {
                         Text("Episodes:")
                             .font(.headline)
-                            .padding(.top, 8)
+                            .padding(.top, standardPadding)
                         
                         EpisodesList(episodes: vm.episodes)
                     } else {
                         DetailRow(
-                            title: "Not found",
-                            value: " at any episode"
+                            title: "Not found".localized,
+                            value: " at any episode".localized
                         )
                     }
                 }
                 .padding()
                 .background(
                     RoundedRectangle(cornerRadius: 12)
-                        .fill(Color.cyan.opacity(0.4))
+                        .fill(Color.cyan.opacity(0.3))
                         .innerRoundedBorder(color: .indigo, lineWidth: 4, cornerRadius: 12)
                 )
             }

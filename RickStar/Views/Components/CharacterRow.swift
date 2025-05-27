@@ -15,13 +15,16 @@ struct CharacterRow: View {
     
     public var body: some View {
         HStack {
-            CachedAsyncImage(url: character.image, cache: cache) {
-                Image(systemName: "person.crop.circle")
-                    .frame(width: 100, height: 100)
+            VStack{
+                CachedAsyncImage(url: character.image, cache: cache) {
+                    Image(systemName: "person.crop.circle")
+                        .frame(width: 100, height: 100)
+                }
+                .frame(width: 100, height: 100)
+                .statusBorderCircle(CharacterStatus(rawValue: character.status.lowercased()) ?? .unknown, lineWidth: 4)
+                .padding([.leading, .top], standardPadding)
+                Spacer()
             }
-            .frame(width: 100, height: 100)
-            .statusBorderCircle(CharacterStatus(rawValue: character.status.lowercased()) ?? .unknown, lineWidth: 4)
-            
             CharacterRowTextData(name: character.name,
                                  origin: character.origin.name,
                                  species: character.species,
@@ -32,10 +35,10 @@ struct CharacterRow: View {
             .frame(maxWidth: .infinity, alignment: .leading)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(8)
+        .padding(standardPadding)
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color(.cyan.opacity(0.4)))
+                .fill(Color(.cyan.opacity(0.3)))
         )
         .overlay(
             RoundedRectangle(cornerRadius: 12)
