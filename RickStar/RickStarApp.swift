@@ -6,12 +6,25 @@
 //
 
 import SwiftUI
+import RickMortyData
 
 @main
 struct RickStarApp: App {
+    private let repo = DefaultCharacterRepository()
+    @State private var router = Router()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationStack(path: $router.path) {
+                CharactersListView(vm: .init(repo: repo))
+                    .environment(router)
+                    .navigationDestination(for: Router.Route.self) { route in
+                        switch route {
+                        case .detail(let character):
+                            CharacterDetailView(character: character)
+                        }
+                    }
+            }
         }
     }
 }
