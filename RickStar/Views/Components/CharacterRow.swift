@@ -19,11 +19,7 @@ struct CharacterRow: View {
                     .frame(width: 100, height: 100)
             }
             .frame(width: 100, height: 100)
-            .clipShape(Circle())
-            .overlay(
-                Circle().stroke(CharacterStatus(rawValue: character.status)?.statusColor ?? .green,
-                                lineWidth: 4)
-            )
+            .statusBorderCircle(CharacterStatus(rawValue: character.status.lowercased()) ?? .unknown, lineWidth: 4)
             
             
             
@@ -65,7 +61,7 @@ struct CharacterRow: View {
         .padding(8)
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color(.indigo.opacity(0.5)))
+                .fill(Color(.cyan.opacity(0.4)))
         )
         .overlay(
             RoundedRectangle(cornerRadius: 12)
