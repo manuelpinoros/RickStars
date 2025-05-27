@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		49D4AC712DE5AF1B00C32233 /* NetworkKit in Frameworks */ = {isa = PBXBuildFile; productRef = 49D4AC702DE5AF1B00C32233 /* NetworkKit */; };
 		49D4AC742DE5B08900C32233 /* NetworkKit in Frameworks */ = {isa = PBXBuildFile; productRef = 49D4AC732DE5B08900C32233 /* NetworkKit */; };
+		49D4AC772DE5B2EF00C32233 /* CacheKit in Frameworks */ = {isa = PBXBuildFile; productRef = 49D4AC762DE5B2EF00C32233 /* CacheKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 			files = (
 				49D4AC742DE5B08900C32233 /* NetworkKit in Frameworks */,
 				49D4AC712DE5AF1B00C32233 /* NetworkKit in Frameworks */,
+				49D4AC772DE5B2EF00C32233 /* CacheKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +123,7 @@
 			packageProductDependencies = (
 				49D4AC702DE5AF1B00C32233 /* NetworkKit */,
 				49D4AC732DE5B08900C32233 /* NetworkKit */,
+				49D4AC762DE5B2EF00C32233 /* CacheKit */,
 			);
 			productName = RickStar;
 			productReference = 49D4AC412DE5AC4800C32233 /* RickStar.app */;
@@ -206,6 +209,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				49D4AC722DE5B08900C32233 /* XCLocalSwiftPackageReference "Packages/NetworkKit" */,
+				49D4AC752DE5B2EF00C32233 /* XCLocalSwiftPackageReference "Packages/CacheKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 49D4AC422DE5AC4800C32233 /* Products */;
@@ -603,6 +607,10 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/NetworkKit;
 		};
+		49D4AC752DE5B2EF00C32233 /* XCLocalSwiftPackageReference "Packages/CacheKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/CacheKit;
+		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -613,6 +621,10 @@
 		49D4AC732DE5B08900C32233 /* NetworkKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = NetworkKit;
+		};
+		49D4AC762DE5B2EF00C32233 /* CacheKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CacheKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
