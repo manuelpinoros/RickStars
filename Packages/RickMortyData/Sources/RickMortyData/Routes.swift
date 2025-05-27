@@ -4,7 +4,6 @@
 //
 //  Created by Manuel Pino Ros on 27/5/25.
 //
-
 import Foundation
 import NetworkKit
 import RickMortyDomain
@@ -16,6 +15,7 @@ public enum RickMortyRoute {
     case location(id: Int)
     case locationSearch(name: String)
     case multipleCharacters(ids: [Int])
+    case episodes(page: Int)
     case multipleEpisodes(ids: [Int])
     
     public var endpoint: Endpoint {
@@ -36,9 +36,15 @@ public enum RickMortyRoute {
                             path: "location",
                             query: [.init(name: "name", value: name)])
             
-        case .multipleEpisodes(ids: let ids):
+        case .episodes(let page):
+            return Endpoint(baseURL: Self.base,
+                            path: "episode",
+                            query: [URLQueryItem(name: "page", value: "\(page)")])
+            
+        case .multipleEpisodes(let ids):
             let idList = ids.map(String.init).joined(separator: ",")
-            return Endpoint(baseURL: Self.base, path: "episodes/\(idList)")
+            return Endpoint(baseURL: Self.base,
+                            path: "episode/\(idList)")
         }
     }
 }
