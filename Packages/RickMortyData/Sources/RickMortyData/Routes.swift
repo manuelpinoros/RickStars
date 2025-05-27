@@ -16,6 +16,7 @@ public enum RickMortyRoute {
     case location(id: Int)
     case locationSearch(name: String)
     case multipleCharacters(ids: [Int])
+    case multipleEpisodes(ids: [Int])
     
     public var endpoint: Endpoint {
         switch self {
@@ -35,6 +36,9 @@ public enum RickMortyRoute {
                             path: "location",
                             query: [.init(name: "name", value: name)])
             
+        case .multipleEpisodes(ids: let ids):
+            let idList = ids.map(String.init).joined(separator: ",")
+            return Endpoint(baseURL: Self.base, path: "episodes/\(idList)")
         }
     }
 }
