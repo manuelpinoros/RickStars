@@ -32,53 +32,30 @@ struct CharacterDetailView: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                     
                     Group {
-                        HStack {
-                            Text(NSLocalizedString("Status:", comment: ""))
-                                .font(.headline)
-                            Spacer()
-                            Text(character.status)
-                                .font(.subheadline)
-                                .multilineTextAlignment(.trailing)
-                        }
-                        HStack {
-                            Text("Species:")
-                                .font(.headline)
-                            Spacer()
-                            Text(character.species)
-                                .font(.subheadline)
-                                .multilineTextAlignment(.trailing)
-                        }
-                        HStack {
-                            Text("Type:")
-                                .font(.headline)
-                            Spacer()
-                            Text(character.type.isEmpty ? "Unknown" : character.type)
-                                .font(.subheadline)
-                                .multilineTextAlignment(.trailing)
-                        }
-                        HStack {
-                            Text("Origin:")
-                                .font(.headline)
-                            Spacer()
-                            Text(character.origin.name)
-                                .font(.subheadline)
-                                .multilineTextAlignment(.trailing)
-                        }
-                        HStack {
-                            Text("Location:")
-                                .font(.headline)
-                            Spacer()
-                            Text(character.location.name)
-                                .font(.subheadline)
-                                .multilineTextAlignment(.trailing)
-                        }
-                        HStack {
-                            Text("Episodes:")
-                                .font(.headline)
-                            Spacer()
-                            Text("\(character.episode.count)")
-                                .font(.subheadline)
-                        }
+                        DetailRow(
+                            title: "Status:",
+                            value: character.status
+                        )
+                        DetailRow(
+                            title: "Species:",
+                            value: character.species.isEmpty ? "Unknown" : character.species
+                        )
+                        DetailRow(
+                            title: "Type:",
+                            value: character.type.isEmpty ? "Unknown" : character.type
+                        )
+                        DetailRow(
+                            title: "Origin:",
+                            value: character.origin.name.isEmpty ? "Unknown" : character.origin.name
+                        )
+                        DetailRow(
+                            title: "Last seen at:",
+                            value: character.location.name.isEmpty ? "Unknown" : character.location.name
+                        )
+                        DetailRow(
+                            title: "Appear in:",
+                            value: "\(character.episode.count)"
+                        )
                     }
                 }
             }
