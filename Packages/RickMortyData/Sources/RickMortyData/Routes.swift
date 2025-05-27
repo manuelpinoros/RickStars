@@ -1,0 +1,40 @@
+//
+//  RickMortyRoute.swift
+//  RickMortyData
+//
+//  Created by Manuel Pino Ros on 27/5/25.
+//
+
+import Foundation
+import NetworkKit
+import RickMortyDomain
+
+public enum RickMortyRoute {
+    static let base = URL(string: "https://rickandmortyapi.com/api")!
+    
+    case characters(page: Int)//, filters: CharacterFilters? = nil)
+    case location(id: Int)
+    case locationSearch(name: String)
+    case multipleCharacters(ids: [Int])
+    
+    public var endpoint: Endpoint {
+        switch self {
+        case .characters(let page)://, let filters):
+            var query: [URLQueryItem] = [.init(name: "page", value: "\(page)")]
+            return Endpoint(baseURL: Self.base, path: "character", query: query)
+            
+        case .multipleCharacters(let ids):
+            let idList = ids.map(String.init).joined(separator: ",")
+            return Endpoint(baseURL: Self.base, path: "character/\(idList)")
+            
+        case .location(let id):
+            return Endpoint(baseURL: Self.base, path: "location/\(id)")
+            
+        case .locationSearch(let name):
+            return Endpoint(baseURL: Self.base,
+                            path: "location",
+                            query: [.init(name: "name", value: name)])
+            
+        }
+    }
+}

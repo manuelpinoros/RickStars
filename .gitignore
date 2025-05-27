@@ -1,62 +1,37 @@
-# Xcode
-#
-# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+### Xcode / Swift
+# Carpetas de build y datos derivados
+DerivedData/
+build/
+*.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
 
-## User settings
-xcuserdata/
+# Estado de usuario e índices locales
+*.xcuserstate
+*.xcuserdatad
+*.moved-aside
+.idea/
+.vscode/
 
-## Obj-C/Swift specific
-*.hmap
+# Archivos de pruebas rápidos y playgrounds temporales
+*.playground
+*.swiftsourceinfo
+*~.nib
+*~.storyboard
 
-## App packaging
-*.ipa
-*.dSYM.zip
-*.dSYM
+# M4 + previews
+.swiftpm/xcode/*
+*.preview-thumbnails
+*.preview-thumbnails/**
 
-## Playgrounds
-timeline.xctimeline
-playground.xcworkspace
+# Archivos generados por docc
+.docc-build/
 
-# Swift Package Manager
-#
-# Add this line if you want to avoid checking in source code from Swift Package Manager dependencies.
-# Packages/
-# Package.pins
-# Package.resolved
-# *.xcodeproj
-#
-# Xcode automatically generates this directory with a .xcworkspacedata file and xcuserdata
-# hence it is not needed unless you have added a package configuration file to your project
-# .swiftpm
-
+# Swift Package Manager (remotos) — pero **NO** ignoramos “Packages/” porque son locales
+.swiftpm/cache/
 .build/
 
-# CocoaPods
-#
-# We recommend against adding the Pods directory to your .gitignore. However
-# you should judge for yourself, the pros and cons are mentioned at:
-# https://guides.cocoapods.org/using/using-cocoapods.html#should-i-check-the-pods-directory-into-source-control
-#
-# Pods/
-#
-# Add this line if you want to avoid checking in source code from the Xcode workspace
-# *.xcworkspace
+# Swift Package binary artifacts
+Artifacts/
 
-# Carthage
-#
-# Add this line if you want to avoid checking in source code from Carthage dependencies.
-# Carthage/Checkouts
-
-Carthage/Build/
-
-# fastlane
-#
-# It is recommended to not store the screenshots in the git repo.
-# Instead, use fastlane to re-generate the screenshots whenever they are needed.
-# For more information about the recommended setup visit:
-# https://docs.fastlane.tools/best-practices/source-control/#source-control
-
-fastlane/report.xml
-fastlane/Preview.html
-fastlane/screenshots/**/*.png
-fastlane/test_output
+# macOS / Finder
+.DS_Store
+.AppleDouble
