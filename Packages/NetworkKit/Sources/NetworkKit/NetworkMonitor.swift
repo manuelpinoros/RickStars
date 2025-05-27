@@ -15,7 +15,7 @@ public final class NetworkMonitor{
     //Simple singleton to check network
     public static let shared = NetworkMonitor()
     
-    public private(set) var isConnected: Bool = true
+    public var isConnected: Bool = true
     public private(set) var interfaceType: NWInterface.InterfaceType?
     
     private let monitor = NWPathMonitor()

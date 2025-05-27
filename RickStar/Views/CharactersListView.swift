@@ -11,7 +11,7 @@ import RickMortyDomain
 import CacheKit
 
 struct CharactersListView: View {
-    @StateObject var vm: CharactersListViewModel
+    @State var vm: CharactersListViewModel
     @EnvironmentObject var router: Router
     private let cache: ImageCache = MemoryImageCache()
 
