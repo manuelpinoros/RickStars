@@ -7,4 +7,6 @@
 
 public protocol CharacterRepository {
     func characters(page: Int) async throws -> CharacterPage
+    
+    func characters(page: Int, name: String?) async throws -> CharacterPage
 }

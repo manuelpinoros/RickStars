@@ -13,22 +13,42 @@ import CacheKit
 struct CharactersListView: View {
     
     @State var vm: CharactersListViewModel
+    @State private var searchText: String = ""
     @Environment(Router.self) var router: Router
-    private let cache: ImageCache = MemoryImageCache()
+    var cache: MemoryImageCache = MemoryImageCache()
 
     var body: some View {
-        List(vm.items.indices, id: \.self) { i in
-            let c = vm.items[i]
-            CharacterRow(character: c, cache: cache)
-                .task { vm.prefetchIfNeeded(index: i) }
-                .onTapGesture { router.pushDetail(c) }
+        List(vm.items, id: \.id) { character in
+            CharacterRow(character: character, cache: cache)
+                .task {
+                    if let idx = vm.items.firstIndex(where: { $0.id == character.id }) {
+                        vm.prefetchIfNeeded(index: idx)
+                    }
+                }
+                .onTapGesture { router.pushDetail(character) }
         }
         .listRowSeparator(.hidden, edges: .all)
         .navigationTitle(NSLocalizedString("RickStar", comment: ""))
-        .task { await vm.load() }
         .overlay {
             if vm.isLoading && vm.items.isEmpty { ProgressView() }
         }
+        .searchable(text: $searchText, prompt: "Search characters")
+        .onSubmit(of: .search) {
+            vm.clearAll()
+            cache.removeAll()
+            Task {
+                await vm.search(name: searchText)
+            }
+        }
+        .onChange(of: searchText, { oldValue, newValue in
+            if newValue.isEmpty {
+                vm.clearAll()
+                cache.removeAll()
+                Task {
+                    await vm.search(name: "")
+                }
+            }
+        })
         .alert("Error",
                isPresented: Binding<Bool>(
                  get: { vm.uiError != nil },
@@ -40,5 +60,6 @@ struct CharactersListView: View {
                message: {
                    Text(vm.uiError ?? "")
                })
+        .task { await vm.load() }
     }
 }

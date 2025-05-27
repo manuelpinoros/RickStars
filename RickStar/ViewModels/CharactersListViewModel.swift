@@ -8,6 +8,7 @@ import NetworkKit
 final class CharactersListViewModel {
     
     private var connectivity = NetworkMonitor.shared
+    private var currentName: String? = nil
     private(set) var items: [Character] = []
     private(set) var isLoading = false
     private var page = 1
@@ -35,7 +36,7 @@ final class CharactersListViewModel {
         defer { isLoading = false }
 
         do {
-            let pageData = try await repo.characters(page: page)
+            let pageData = try await repo.characters(page: page, name: currentName)
             items += pageData.results
             canLoadMore = pageData.info.next != nil
             page += 1
@@ -62,5 +63,20 @@ final class CharactersListViewModel {
         Task.detached(priority: .utility) { [weak self] in
             await self?.load()
         }
+    }
+    
+    func search(name: String) async {
+        currentName = name.isEmpty ? nil : name
+        page = 1
+        canLoadMore = true
+        items.removeAll()
+        await load()
+    }
+    
+    func clearAll() {
+        currentName = nil
+        page = 1
+        canLoadMore = true
+        items.removeAll()
     }
 }

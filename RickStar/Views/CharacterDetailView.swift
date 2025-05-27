@@ -12,6 +12,7 @@ struct CharacterDetailView: View {
     
     @State private var episodes: [Episode] = []
     @State private var episodesError: String? = nil
+    @Environment(\.dismiss) private var dismiss
     private let episodeRepo = DefaultEpisodeRepository()
     let character: Character
     
@@ -96,6 +97,17 @@ struct CharacterDetailView: View {
         .padding()
         .navigationTitle(character.name)
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: { dismiss() }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "chevron.backward")
+                        Text("Back")
+                    }
+                }
+            }
+        }
         .alert("Error",
                isPresented: Binding<Bool>(
                    get: { episodesError != nil },

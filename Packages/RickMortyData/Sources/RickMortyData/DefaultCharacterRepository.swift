@@ -15,8 +15,13 @@ public final class DefaultCharacterRepository: CharacterRepository {
   }
 
   public func characters(page: Int) async throws -> CharacterPage {
-    // without filters:
-    let ep = RickMortyRoute.characters(page: page).endpoint
+    try await client.request(
+      RickMortyRoute.characters(page: page, name: nil).endpoint
+    )
+  }
+
+  public func characters(page: Int, name: String?) async throws -> CharacterPage {
+    let ep = RickMortyRoute.characters(page: page, name: name).endpoint
     return try await client.request(ep)
   }
 }

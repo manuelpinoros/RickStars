@@ -14,6 +14,10 @@ public final class MemoryImageCache: ImageCache {
     private let cache = NSCache<NSURL, UIImage>()
 
     public init() {}
+
+    public func removeAll() {
+        cache.removeAllObjects()
+    }
     
     public subscript(_ url: URL) -> UIImage? {
         get { cache.object(forKey: url as NSURL) }
