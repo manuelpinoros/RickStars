@@ -19,6 +19,34 @@ RickStars is a demo iOS app that leverages the free Rick & Morty API to display 
   * **RickMortyDomain**: core models and repository protocols
   * **RickMortyData**: concrete repository implementations using NetworkKit
 * **MVVM** combined with a **Router/Coordinator** pattern for clean navigation
-* **Localization** support (English, Spanish)
+* **Localization** support (English, French, Spanish)
 
-Enjoy exploring the multiverse of Rick & Morty with a swift, modular SwiftUI experience!
+
+## Project Structure
+
+.
+├── Packages
+│   ├── CacheKit
+│   │   └── Sources
+│   ├── NetworkKit
+│   │   └── Sources
+│   ├── RickMortyData
+│   │   └── Sources
+│   └── RickMortyDomain
+│       └── Sources
+├── RickStar
+│   ├── Assets.xcassets
+│   │   ├── AccentColor.colorset
+│   │   └── AppIcon.appiconset
+│   ├── Declarations
+│   │   └── Extensions
+│   ├── Navigation
+│   ├── Preview Content
+│   │   └── Preview Assets.xcassets
+│   ├── Resources
+│   ├── ViewModels
+│   └── Views
+│       └── Components
+├── RickStarTests
+└── RickStarUITests
+```
