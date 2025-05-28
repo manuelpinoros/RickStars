@@ -6,6 +6,14 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		49D4AC712DE5AF1B00C32233 /* NetworkKit in Frameworks */ = {isa = PBXBuildFile; productRef = 49D4AC702DE5AF1B00C32233 /* NetworkKit */; };
+		49D4AC742DE5B08900C32233 /* NetworkKit in Frameworks */ = {isa = PBXBuildFile; productRef = 49D4AC732DE5B08900C32233 /* NetworkKit */; };
+		49D4AC772DE5B2EF00C32233 /* CacheKit in Frameworks */ = {isa = PBXBuildFile; productRef = 49D4AC762DE5B2EF00C32233 /* CacheKit */; };
+		49D4AC7A2DE5B33D00C32233 /* RickMortyDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 49D4AC792DE5B33D00C32233 /* RickMortyDomain */; };
+		49D4AC7D2DE5B39B00C32233 /* RickMortyData in Frameworks */ = {isa = PBXBuildFile; productRef = 49D4AC7C2DE5B39B00C32233 /* RickMortyData */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		49D4AC532DE5AC4900C32233 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +60,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49D4AC742DE5B08900C32233 /* NetworkKit in Frameworks */,
+				49D4AC712DE5AF1B00C32233 /* NetworkKit in Frameworks */,
+				49D4AC772DE5B2EF00C32233 /* CacheKit in Frameworks */,
+				49D4AC7D2DE5B39B00C32233 /* RickMortyData in Frameworks */,
+				49D4AC7A2DE5B33D00C32233 /* RickMortyDomain in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +125,11 @@
 			);
 			name = RickStar;
 			packageProductDependencies = (
+				49D4AC702DE5AF1B00C32233 /* NetworkKit */,
+				49D4AC732DE5B08900C32233 /* NetworkKit */,
+				49D4AC762DE5B2EF00C32233 /* CacheKit */,
+				49D4AC792DE5B33D00C32233 /* RickMortyDomain */,
+				49D4AC7C2DE5B39B00C32233 /* RickMortyData */,
 			);
 			productName = RickStar;
 			productReference = 49D4AC412DE5AC4800C32233 /* RickStar.app */;
@@ -192,9 +210,17 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
+				es,
 			);
 			mainGroup = 49D4AC382DE5AC4800C32233;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				49D4AC722DE5B08900C32233 /* XCLocalSwiftPackageReference "Packages/NetworkKit" */,
+				49D4AC752DE5B2EF00C32233 /* XCLocalSwiftPackageReference "Packages/CacheKit" */,
+				49D4AC782DE5B33D00C32233 /* XCLocalSwiftPackageReference "Packages/RickMortyDomain" */,
+				49D4AC7B2DE5B39B00C32233 /* XCLocalSwiftPackageReference "Packages/RickMortyData" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 49D4AC422DE5AC4800C32233 /* Products */;
 			projectDirPath = "";
@@ -326,6 +352,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -380,6 +407,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Release;
 		};
@@ -394,28 +422,31 @@
 				DEVELOPMENT_ASSET_PATHS = "\"RickStar/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = RickStars;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = SplashScreen.storyboard;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mpr.RickStar;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mpr.RickStars;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				XROS_DEPLOYMENT_TARGET = 2.2;
 			};
 			name = Debug;
@@ -431,28 +462,31 @@
 				DEVELOPMENT_ASSET_PATHS = "\"RickStar/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = RickStars;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = SplashScreen.storyboard;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.2;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mpr.RickStar;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mpr.RickStars;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				XROS_DEPLOYMENT_TARGET = 2.2;
 			};
 			name = Release;
@@ -583,6 +617,48 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		49D4AC722DE5B08900C32233 /* XCLocalSwiftPackageReference "Packages/NetworkKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/NetworkKit;
+		};
+		49D4AC752DE5B2EF00C32233 /* XCLocalSwiftPackageReference "Packages/CacheKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/CacheKit;
+		};
+		49D4AC782DE5B33D00C32233 /* XCLocalSwiftPackageReference "Packages/RickMortyDomain" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/RickMortyDomain;
+		};
+		49D4AC7B2DE5B39B00C32233 /* XCLocalSwiftPackageReference "Packages/RickMortyData" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/RickMortyData;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		49D4AC702DE5AF1B00C32233 /* NetworkKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NetworkKit;
+		};
+		49D4AC732DE5B08900C32233 /* NetworkKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NetworkKit;
+		};
+		49D4AC762DE5B2EF00C32233 /* CacheKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CacheKit;
+		};
+		49D4AC792DE5B33D00C32233 /* RickMortyDomain */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RickMortyDomain;
+		};
+		49D4AC7C2DE5B39B00C32233 /* RickMortyData */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RickMortyData;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 49D4AC392DE5AC4800C32233 /* Project object */;
 }
