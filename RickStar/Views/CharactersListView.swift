@@ -32,10 +32,9 @@ struct CharactersListView: View {
                         }
                         .onTapGesture { router.pushDetail(character) }
                 }
-                .accessibilityIdentifier("CharactersList")
-                .accessibilityElement(children: .contain)
-                .scrollIndicators(.hidden)
                 .listStyle(.plain)
+                .accessibilityIdentifier("CharactersList")
+                .scrollIndicators(.hidden)
                 .scrollContentBackground(.hidden)
                 .navigationTitle(NSLocalizedString("RickStar", comment: ""))
                 .overlay {

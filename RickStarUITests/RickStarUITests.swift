@@ -75,20 +75,20 @@ final class RickStarUITests: XCTestCase {
         let cells = list.cells.count
         XCTAssertGreaterThan(cells, 0, "Should have search results")
         
-        // Clear search
+        // Change search
         searchBar.tap()
         searchBar.typeText("Rick")
         
         // Wait for the list to update with all results
-        let listAfterClear = list.waitForExistence(timeout: 10)
-        XCTAssertTrue(listAfterClear, "List should be visible after clearing search")
+        let listAfterClear = list.waitForExistence(timeout: 5)
+        XCTAssertTrue(listAfterClear, "List should be visible after change search")
         
         // Wait a bit more to ensure the full list is loaded
         Thread.sleep(forTimeInterval: 2)
         
         // Verify we have more results after clearing
         let allCells = list.cells
-        XCTAssertGreaterThan(allCells.count, cells, "Should have more results after clearing search")
+        XCTAssertGreaterThan(allCells.count, cells, "Should have more results after change search")
     }
 
 
