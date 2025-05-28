@@ -51,3 +51,30 @@ RickStars is a demo iOS app that leverages the free Rick & Morty API to display 
 ├── RickStarTests
 └── RickStarUITests
 ```
+## Running NetworkKit Tests
+
+To run the NetworkKit tests, follow these steps:
+
+1. Open a terminal and navigate to the NetworkKit package directory:
+   ```bash
+   cd Packages/NetworkKit
+   ```
+
+2. Run the tests using Swift Package Manager:
+   ```bash
+   swift test
+   ```
+
+   This will execute all tests in the NetworkKit package and report the results.
+
+3. If you want to run a specific test, you can use the `--filter` option. For example:
+   ```bash
+   swift test --filter NetworkKitTests.testCharacterEndpointURLRequest
+   ```
+
+4. For more detailed output, you can add the `--verbose` flag:
+   ```bash
+   swift test --verbose
+   ```
+
+5. If you encounter any issues, ensure that your Swift version is compatible (Swift 5.9 or later) and that all dependencies are correctly set up in your `Package.swift` file.
