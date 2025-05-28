@@ -32,11 +32,7 @@ struct CharactersListView: View {
                         }
                         .onTapGesture { router.pushDetail(character) }
                 }
-                .listStyle(.plain)
-                .accessibilityIdentifier("CharactersList")
-                .scrollIndicators(.hidden)
-                .scrollContentBackground(.hidden)
-                .navigationTitle(NSLocalizedString("RickStar", comment: ""))
+                .characterListStyle()
                 .overlay {
                     if vm.isLoading && vm.items.isEmpty { ProgressView() }
                 }

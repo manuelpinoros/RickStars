@@ -62,20 +62,8 @@ struct CharacterDetailView: View {
                 )
             }
         }
-        .padding()
-        .navigationTitle(vm.character.name)
-        .navigationBarTitleDisplayMode(.inline)
-        .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button(action: { dismiss() }) {
-                    HStack(spacing: 4) {
-                        Image(systemName: "chevron.backward")
-                        Text("Back")
-                    }
-                }
-            }
-        }
+        .detailNavigationStyle(title: vm.character.name,
+                              dismissAction: dismiss)
         .alert("Error",
                isPresented: Binding<Bool>(
                    get: { vm.episodesError != nil },
