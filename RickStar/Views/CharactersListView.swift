@@ -19,8 +19,9 @@ struct CharactersListView: View {
 
     var body: some View {
         ScrollViewReader { proxy in
-            SearchBarView(searchText: $searchText)
-            ZStack(alignment: .bottomTrailing) {
+            VStack {
+                SearchBarView(searchText: $searchText)
+                
                 List(vm.items, id: \.id) { character in
                     CharacterRow(character: character, cache: cache)
                         .id(character.id)
@@ -31,6 +32,8 @@ struct CharactersListView: View {
                         }
                         .onTapGesture { router.pushDetail(character) }
                 }
+                .accessibilityIdentifier("CharactersList")
+                .accessibilityElement(children: .contain)
                 .scrollIndicators(.hidden)
                 .listStyle(.plain)
                 .scrollContentBackground(.hidden)
@@ -58,8 +61,8 @@ struct CharactersListView: View {
                            Text(vm.uiError ?? "")
                        })
                 .task { await vm.load() }
-
-                //MARK: Floating button to comeback to top
+            }
+            .overlay(alignment: .bottomTrailing) {
                 CustomButton(
                     size: 65,
                     backgroundColor: .indigo.opacity(0.5),
@@ -77,6 +80,7 @@ struct CharactersListView: View {
                 .padding([.trailing, .bottom])
             }
         }
+        
     }
     
     // MARK: - Helpers

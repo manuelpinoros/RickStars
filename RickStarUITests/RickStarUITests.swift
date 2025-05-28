@@ -15,7 +15,7 @@ final class RickStarUITests: XCTestCase {
         // In UI tests it is usually best to stop immediately when a failure occurs.
         continueAfterFailure = false
 
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+        // In UI tests it's important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
 
     override func tearDownWithError() throws {
@@ -39,5 +39,55 @@ final class RickStarUITests: XCTestCase {
                 XCUIApplication().launch()
             }
         }
+    }
+
+    @MainActor
+    func testSearchBarFunctionality() throws {
+        // Launch the app
+        let app = XCUIApplication()
+        app.launch()
+        
+        // Wait for the initial list to load with a longer timeout
+        let list = app.collectionViews["CharactersList"]
+        let listExists = list.waitForExistence(timeout: 10)
+        XCTAssertTrue(listExists, "List should be visible after 10 seconds")
+        
+        // Print debug information about what elements are available
+        print("Available elements:")
+        print(app.debugDescription)
+        
+        // Wait a bit more to ensure the list is fully loaded
+        Thread.sleep(forTimeInterval: 2)
+        
+        // Find the search bar
+        let searchBar = app.textFields["Search"]
+        let searchBarExists = searchBar.waitForExistence(timeout: 5)
+        XCTAssertTrue(searchBarExists, "Search bar should be visible")
+        
+        // Enter search text
+        searchBar.tap()
+        searchBar.typeText("Abadango")
+        
+        // Wait a bit more to ensure the search results are loaded
+        Thread.sleep(forTimeInterval: 5)
+        
+        // Verify we have some results
+        let cells = list.cells.count
+        XCTAssertGreaterThan(cells, 0, "Should have search results")
+        
+        // Clear search
+        searchBar.tap()
+        searchBar.typeText("Rick")
+        
+        // Wait for the list to update with all results
+        let listAfterClear = list.waitForExistence(timeout: 10)
+        XCTAssertTrue(listAfterClear, "List should be visible after clearing search")
+        
+        // Wait a bit more to ensure the full list is loaded
+        Thread.sleep(forTimeInterval: 2)
+        
+        // Verify we have more results after clearing
+        let allCells = list.cells
+        XCTAssertGreaterThan(allCells.count, cells, "Should have more results after clearing search")
     }
 }

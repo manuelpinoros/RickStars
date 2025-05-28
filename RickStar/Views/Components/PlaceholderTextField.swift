@@ -20,7 +20,9 @@ struct PlaceholderTextField: View {
             }
 
             TextField("", text: $text)
+                .accessibilityIdentifier("Search")
                 .padding(4)
+            
         }
     }
 }
