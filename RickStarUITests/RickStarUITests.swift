@@ -90,4 +90,35 @@ final class RickStarUITests: XCTestCase {
         let allCells = list.cells
         XCTAssertGreaterThan(allCells.count, cells, "Should have more results after clearing search")
     }
+
+
+    @MainActor
+    func testTapSecondItemAndBack() throws {
+        let app = XCUIApplication()
+        app.launch()
+
+        // Ensure the character list is present.
+        let list = app.collectionViews["CharactersList"]
+        XCTAssertTrue(list.waitForExistence(timeout: 10), "Characters list should appear")
+
+        // Make sure there are at least two items.
+        XCTAssertGreaterThan(list.cells.count, 1, "Need at least two cells to test navigation")
+
+        // Tap the second cell (index 1).
+        let secondCell = list.cells.element(boundBy: 1)
+        secondCell.tap()
+
+        // Wait for detail screen to load (look for Back button).
+        let backButton = app.buttons["Back"]
+        XCTAssertTrue(backButton.waitForExistence(timeout: 5), "Back button should appear on detail view")
+
+        // Pause briefly to simulate the user reading content.
+        sleep(2)
+
+        // Navigate back to the list.
+        backButton.tap()
+
+        // Verify we are back on the list.
+        XCTAssertTrue(list.waitForExistence(timeout: 5), "Characters list should reappear after navigating back")
+    }
 }
