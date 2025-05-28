@@ -6,13 +6,31 @@
 //
 import Foundation
 
-public enum NetworkError: Error {
+public enum NetworkError: Error, Equatable {
     case invalidResponse
     case badStatusCode(Int)
     case decodingError(Error)
     case urlError(URLError)
-    case cancelled                     // task or URLSession cancelled
+    case cancelled                     
     case unknown(Error)
+    
+    public static func == (lhs: NetworkError, rhs: NetworkError) -> Bool {
+        switch (lhs, rhs) {
+        case (.invalidResponse, .invalidResponse):
+            return true
+        case (.badStatusCode(let lhsCode), .badStatusCode(let rhsCode)):
+            return lhsCode == rhsCode
+        case (.cancelled, .cancelled):
+            return true
+        case (.urlError(let lhsError), .urlError(let rhsError)):
+            return lhsError.code == rhsError.code
+        case (.decodingError, .decodingError),
+             (.unknown, .unknown):
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 extension NetworkError: LocalizedError {

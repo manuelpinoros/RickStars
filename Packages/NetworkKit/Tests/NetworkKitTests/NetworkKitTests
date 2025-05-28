@@ -1,0 +1,14 @@
+do {
+    // ...
+} catch is CancellationError {
+    throw NetworkError.cancelled
+} catch let urlErr as URLError {
+    if urlErr.code == .cancelled {
+        throw NetworkError.cancelled
+    }
+    throw NetworkError.urlError(urlErr)
+} catch let netErr as NetworkError {
+    throw netErr
+} catch {
+    throw NetworkError.unknown(error)
+} 

@@ -27,7 +27,7 @@ public struct Endpoint {
       url: baseURL.appendingPathComponent(path),
       resolvingAgainstBaseURL: false
     )!
-    comps.queryItems = query
+    comps.queryItems = query.isEmpty ? nil : query
     return URLRequest(url: comps.url!)
   }
 }
@@ -57,6 +57,8 @@ public final class URLSessionClient: NetworkClient {
                 throw NetworkError.cancelled
             }
             throw NetworkError.urlError(urlErr)
+        } catch let netErr as NetworkError {
+            throw netErr
         } catch {
             throw NetworkError.unknown(error)
         }
