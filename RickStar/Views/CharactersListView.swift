@@ -19,6 +19,7 @@ struct CharactersListView: View {
 
     var body: some View {
         ScrollViewReader { proxy in
+            SearchBarView(searchText: $searchText)
             ZStack(alignment: .bottomTrailing) {
                 List(vm.items, id: \.id) { character in
                     CharacterRow(character: character, cache: cache)
@@ -37,13 +38,12 @@ struct CharactersListView: View {
                 .overlay {
                     if vm.isLoading && vm.items.isEmpty { ProgressView() }
                 }
-                .searchable(text: $searchText, prompt: "Search characters").id("search")
-                .onSubmit(of: .search) {
-                    performSearch()
-                }
                 .onChange(of: searchText, { oldValue, newValue in
                     if newValue.isEmpty {
                         resetSearch()
+                    }
+                    else{
+                        performSearch()
                     }
                 })
                 .alert("Error",
@@ -74,6 +74,7 @@ struct CharactersListView: View {
                     borderColor:  .white.opacity(0.8),
                     borderWidth: 4
                 )
+                .padding([.trailing, .bottom])
             }
         }
     }

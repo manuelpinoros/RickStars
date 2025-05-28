@@ -251,6 +251,7 @@
       }
     },
     "Search characters" : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

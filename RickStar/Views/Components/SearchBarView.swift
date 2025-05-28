@@ -24,10 +24,10 @@ struct SearchBarView: View {
             .padding(.horizontal, 14)
             .background(
                 Capsule()
-                    .fill(.indigo.opacity(0.7))
+                    .fill(.mint.opacity(0.4))
                     .overlay(
                         Capsule()
-                            .stroke(.white, lineWidth: 4)
+                            .stroke(.cyan, lineWidth: 4)
                     )
             )
             .padding(.horizontal)

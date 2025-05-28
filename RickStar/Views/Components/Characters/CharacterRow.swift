@@ -42,7 +42,7 @@ struct CharacterRow: View {
         )
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(.cyan, lineWidth: 2)
+                .stroke(.cyan, lineWidth: 4)
         )
         .padding(.vertical, 4)
     }
