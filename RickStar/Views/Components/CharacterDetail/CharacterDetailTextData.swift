@@ -51,8 +51,8 @@ struct CharacterDetailTextData: View {
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color.cyan.opacity(0.3))
-                .innerRoundedBorder(color: .indigo, lineWidth: 4, cornerRadius: 12)
+                .fill(Color.mint.opacity(0.3))
+                .innerRoundedBorder(color: .cyan, lineWidth: 4, cornerRadius: 12)
         )
     }
 }

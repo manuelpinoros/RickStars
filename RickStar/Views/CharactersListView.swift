@@ -62,8 +62,8 @@ struct CharactersListView: View {
                 //MARK: Floating button to comeback to top
                 CustomButton(
                     size: 65,
-                    backgroundColor: .mint.opacity(0.5),
-                    selectedColor: .mint,
+                    backgroundColor: .indigo.opacity(0.5),
+                    selectedColor: .indigo,
                     iconColor:  .white,
                     icon: "arrow.up.circle.fill",
                     action: {

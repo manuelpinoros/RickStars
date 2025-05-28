@@ -15,11 +15,10 @@ import RickMortyData
 @Observable
 final class CharacterDetailViewModel {
     
+    private let episodeRepo: EpisodeRepository
     let character: Character
     var episodes: [Episode] = []
     var episodesError: String?
-
-    private let episodeRepo: EpisodeRepository
 
     init(
         character: Character,

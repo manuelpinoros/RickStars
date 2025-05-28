@@ -38,11 +38,11 @@ struct CharacterRow: View {
         .padding(standardPadding)
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(Color(.cyan.opacity(0.3)))
+                .fill(Color(.mint.opacity(0.3)))
         )
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .stroke(.indigo, lineWidth: 2)
+                .stroke(.cyan, lineWidth: 2)
         )
         .padding(.vertical, 4)
     }
