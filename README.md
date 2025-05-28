@@ -78,3 +78,16 @@ To run the NetworkKit tests, follow these steps:
    ```
 
 5. If you encounter any issues, ensure that your Swift version is compatible (Swift 5.9 or later) and that all dependencies are correctly set up in your `Package.swift` file.
+
+
+## Running UI Tests from Xcode
+
+1. Open the **RickStar.xcodeproj** in Xcode.  
+2. Make sure the **RickStarUITests** scheme is available:
+   - Go to **Product ▶︎ Scheme ▶︎ Manage Schemes…**  
+   - Check **Shared** next to **RickStarUITests** (if it isn’t already).  
+3. To run *all* UI tests at once, simply press **⌘U** (Product ▶︎ Test).  
+4. To run a single test or file:
+   - In the Project navigator, open `RickStarUITests.swift`.  
+   - Click the Play ▶️ button in the gutter next to the test **class** or **method** you want to run.  
+5. Inspect results in the Report navigator (⌘9) once the tests complete. 
