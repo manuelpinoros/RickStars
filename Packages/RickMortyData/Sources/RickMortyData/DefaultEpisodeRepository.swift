@@ -20,6 +20,13 @@ public final class DefaultEpisodeRepository: EpisodeRepository {
 
     public func episodes(ids: [Int]) async throws -> [Episode] {
         let ep = RickMortyRoute.multipleEpisodes(ids: ids).endpoint
-        return try await client.request(ep)
+        if ids.count == 1 {
+            // For single episode, the API returns a single object
+            let episode: Episode = try await client.request(ep)
+            return [episode]
+        } else {
+            // For multiple episodes, the API returns an array
+            return try await client.request(ep)
+        }
     }
 }
