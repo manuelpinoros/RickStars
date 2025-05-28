@@ -36,11 +36,11 @@ public enum NetworkError: Error, Equatable {
 extension NetworkError: LocalizedError {
     public var errorDescription: String? {
         switch self {
-        case .invalidResponse: return "The server response is not valid."
+        case .invalidResponse: return "La respuesta del servidor no es válida."
         case .badStatusCode(let code): return "Error HTTP \(code)."
-        case .decodingError: return "The response could not be parsed."
+        case .decodingError: return "No se pudo interpretar la respuesta."
         case .urlError(let e): return e.localizedDescription
-        case .cancelled: return nil
+        case .cancelled: return nil                       // silencio
         case .unknown(let e): return e.localizedDescription
         }
     }

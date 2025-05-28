@@ -41,3 +41,4 @@ final class SimpleNetworkKitTests: XCTestCase {
         let cancelled = NetworkError.cancelled
         XCTAssertNil(cancelled.errorDescription)
     }
+}
