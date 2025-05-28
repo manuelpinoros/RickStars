@@ -27,27 +27,29 @@ RickStars is a demo iOS app that leverages the free Rick & Morty API to display 
 ```
 .
 ├── Packages
-│   ├── CacheKit
-│   │   └── Sources
-│   ├── NetworkKit
-│   │   └── Sources
-│   ├── RickMortyData
-│   │   └── Sources
-│   └── RickMortyDomain
-│       └── Sources
+│   ├── CacheKit
+│   │   └── Sources
+│   ├── NetworkKit
+│   │   ├── Sources
+│   │   └── Tests
+│   ├── RickMortyData
+│   │   └── Sources
+│   └── RickMortyDomain
+│       └── Sources
 ├── RickStar
-│   ├── Assets.xcassets
-│   │   ├── AccentColor.colorset
-│   │   └── AppIcon.appiconset
-│   ├── Declarations
-│   │   └── Extensions
-│   ├── Navigation
-│   ├── Preview Content
-│   │   └── Preview Assets.xcassets
-│   ├── Resources
-│   ├── ViewModels
-│   └── Views
-│       └── Components
+│   ├── Assets.xcassets
+│   │   ├── AccentColor.colorset
+│   │   ├── AppIcon.appiconset
+│   │   └── RickStars.imageset
+│   ├── Declarations
+│   │   └── Extensions
+│   ├── Navigation
+│   ├── Preview Content
+│   │   └── Preview Assets.xcassets
+│   ├── Resources
+│   ├── ViewModels
+│   └── Views
+│       └── Components
 ├── RickStarTests
 └── RickStarUITests
 ```
