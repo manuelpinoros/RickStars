@@ -141,7 +141,7 @@ final class CharactersListViewModel {
             lastSearchTimestamp = nil
             do {
                 clearAll()
-                try await search(name: "")
+                try await reloadFromScratch()
             } catch {
                 alertMessage = (error as? LocalizedError)?.errorDescription ?? unexpectedErrorMessage
             }
