@@ -16,7 +16,6 @@ public final class DefaultEpisodeRepository: EpisodeRepository {
     }
 
     // MARK: - Public API
-
     public func episodes(page: Int) async throws -> EpisodePage {
         let endpoint = RickMortyRoute.episodes(page: page).endpoint
         let dto: EpisodePageResponse = try await client.request(endpoint)
@@ -27,11 +26,9 @@ public final class DefaultEpisodeRepository: EpisodeRepository {
         let endpoint = RickMortyRoute.multipleEpisodes(ids: ids).endpoint
 
         if ids.count == 1 {
-            // La API devuelve un objeto único cuando envías un solo id.
             let dto: EpisodeResponse = try await client.request(endpoint)
             return [map(dto)]
         } else {
-            // Con varios ids devuelve un array de episodios.
             let dtos: [EpisodeResponse] = try await client.request(endpoint)
             return dtos.map(map)
         }
