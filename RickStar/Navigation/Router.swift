@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import RickMortyData
+
 @MainActor
 @Observable
 final class Router {

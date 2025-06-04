@@ -15,7 +15,6 @@ struct CharactersListView: View {
         ScrollViewReader { proxy in
             VStack {
                 SearchBarView(searchText: $searchText)
-                
                 List(vm.items, id: \.id) { character in
                     CharacterRow(
                         character: character,

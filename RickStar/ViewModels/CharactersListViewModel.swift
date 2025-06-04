@@ -28,6 +28,7 @@ final class CharactersListViewModel {
     private let prefetchThreshold = 5
     private let searchThrottle: TimeInterval = 0.4   // 400 ms
     private var lastSearchTimestamp: Date?
+    private var isFirstTimeAppear: Bool = true
     
     // MARK: - UI State
     var alertMessage: String?
