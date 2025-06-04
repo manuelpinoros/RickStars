@@ -22,48 +22,28 @@ struct CharactersListView: View {
                         image: vm.imagesByURL[character.image]
                     )
                     .id(character.id)
-                    .task {
-                        if let idx = vm.items.firstIndex(where: { $0.id == character.id }) {
-                            vm.prefetchIfNeeded(index: idx)
-                        }
-                        do {
-                            try await vm.loadImage(from: character.image)
-                        } catch {
-                            vm.uiError = (error as? LocalizedError)?.errorDescription ?? "Error desconocido"
-                        }
-                    }
+                    .task { await vm.onRowAppear(character) }
                     .onTapGesture { vm.showDetail(character) }
                 }
                 .characterListStyle()
                 .overlay {
                     if vm.isLoading && vm.items.isEmpty { ProgressView() }
                 }
-                .onChange(of: searchText, { oldValue, newValue in
-                    if newValue.isEmpty {
-                        resetSearch()
-                    }
-                    else{
-                        performSearch()
-                    }
-                })
+                .onChange(of: searchText) { _, newValue in
+                    vm.handleSearchChange(newValue)
+                }
                 .alert("Error",
-                       isPresented: Binding<Bool>(
-                        get: { vm.uiError != nil },
-                        set: { if !$0 { vm.uiError = nil } }
+                       isPresented: Binding(
+                        get: { vm.alertMessage != nil },
+                        set: { if !$0 { vm.alertMessage = nil } }
                        ),
                        actions: {
-                    Button("OK") { vm.uiError = nil }
+                    Button("OK", role: .cancel) { vm.alertMessage = nil }
                 },
                        message: {
-                    Text(vm.uiError ?? "")
+                    Text(vm.alertMessage ?? "")
                 })
-                .task {
-                    do {
-                        try await vm.load()
-                    } catch {
-                        //We will show the error with vm.uiError
-                    }
-                }
+                .task { await vm.onViewAppear() }
             }
             .overlay(alignment: .bottomTrailing) {
                 CustomButton(
@@ -86,20 +66,4 @@ struct CharactersListView: View {
         
     }
     
-    // MARK: - Helpers
-    private func performSearch() {
-        vm.clearAll()
-        Task {
-            do { try await vm.search(name: searchText) }
-            catch { vm.uiError = (error as? LocalizedError)?.errorDescription ?? "Error desconocido" }
-        }
-    }
-    
-    private func resetSearch() {
-        vm.clearAll()
-        Task {
-            do { try await vm.search(name: "") }
-            catch { vm.uiError = (error as? LocalizedError)?.errorDescription ?? "Error desconocido" }
-        }
-    }
 }

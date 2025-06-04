@@ -27,7 +27,8 @@ final class CharactersListViewModel {
     
     private let prefetchThreshold = 5
     
-    var uiError: String?
+    // MARK: - UI State
+    var alertMessage: String?
     var imagesByURL: [URL: UIImage] = [:]
     
     init(repo: CharacterRepository,
@@ -46,7 +47,7 @@ final class CharactersListViewModel {
                     do {
                         try await self.reloadFromScratch()
                     } catch {
-                        self.uiError = (error as? LocalizedError)?.errorDescription ?? "Error desconocido"
+                        self.alertMessage = (error as? LocalizedError)?.errorDescription ?? unexpectedErrorMessage
                     }
                 }
             }
@@ -83,7 +84,7 @@ final class CharactersListViewModel {
             } catch NetworkError.cancelled {
                 debugPrint("request cancel")
             } catch {
-                self.uiError = (error as? LocalizedError)?.errorDescription ?? "Error desconocido"
+                self.alertMessage = (error as? LocalizedError)?.errorDescription ?? unexpectedErrorMessage
             }
         }
     }
@@ -111,5 +112,36 @@ final class CharactersListViewModel {
     
     func showDetail(_ character: Character) {
         router.pushDetail(character)
+    }
+    
+    // MARK: - View helpers (side‑effects isolated here)
+    func onViewAppear() async {
+        do {
+            try await load()
+        } catch {
+            alertMessage = (error as? LocalizedError)?.errorDescription ?? unexpectedErrorMessage
+        }
+    }
+
+    func onRowAppear(_ character: Character) async {
+        if let idx = items.firstIndex(where: { $0.id == character.id }) {
+            prefetchIfNeeded(index: idx)
+        }
+        do {
+            try await loadImage(from: character.image)
+        } catch {
+            alertMessage = (error as? LocalizedError)?.errorDescription ?? unexpectedErrorMessage
+        }
+    }
+
+    func handleSearchChange(_ text: String) {
+        Task {
+            do {
+                clearAll()
+                try await search(name: text)
+            } catch {
+                alertMessage = (error as? LocalizedError)?.errorDescription ?? unexpectedErrorMessage
+            }
+        }
     }
 }
