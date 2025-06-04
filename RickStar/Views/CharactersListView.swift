@@ -4,58 +4,45 @@
 //
 //  Created by Manuel Pino Ros on 27/5/25.
 //
-
-
 import SwiftUI
-import RickMortyDomain
-import CacheKit
 
 struct CharactersListView: View {
     
-    @State var vm: CharactersListViewModel
+    var vm: CharactersListViewModel
     @State private var searchText: String = ""
-    @Environment(Router.self) var router: Router
-    var cache: MemoryImageCache = MemoryImageCache()
-
+    
     var body: some View {
         ScrollViewReader { proxy in
             VStack {
                 SearchBarView(searchText: $searchText)
-                
                 List(vm.items, id: \.id) { character in
-                    CharacterRow(character: character, cache: cache)
-                        .id(character.id)
-                        .task {
-                            if let idx = vm.items.firstIndex(where: { $0.id == character.id }) {
-                                vm.prefetchIfNeeded(index: idx)
-                            }
-                        }
-                        .onTapGesture { router.pushDetail(character) }
+                    CharacterRow(
+                        character: character,
+                        image: vm.imagesByURL[character.image]
+                    )
+                    .id(character.id)
+                    .task { await vm.onRowAppear(character) }
+                    .onTapGesture { vm.showDetail(character) }
                 }
                 .characterListStyle()
                 .overlay {
                     if vm.isLoading && vm.items.isEmpty { ProgressView() }
                 }
-                .onChange(of: searchText, { oldValue, newValue in
-                    if newValue.isEmpty {
-                        resetSearch()
-                    }
-                    else{
-                        performSearch()
-                    }
-                })
+                .onChange(of: searchText) { _, newValue in
+                    Task { await vm.handleSearchChange(newValue) }
+                }
                 .alert("Error",
-                       isPresented: Binding<Bool>(
-                         get: { vm.uiError != nil },
-                         set: { if !$0 { vm.uiError = nil } }
+                       isPresented: Binding(
+                        get: { vm.alertMessage != nil },
+                        set: { if !$0 { vm.alertMessage = nil } }
                        ),
                        actions: {
-                           Button("OK") { vm.uiError = nil }
-                       },
+                    Button("OK", role: .cancel) { vm.alertMessage = nil }
+                },
                        message: {
-                           Text(vm.uiError ?? "")
-                       })
-                .task { await vm.load() }
+                    Text(vm.alertMessage ?? "")
+                })
+                .task { await vm.onViewAppear() }
             }
             .overlay(alignment: .bottomTrailing) {
                 CustomButton(
@@ -78,16 +65,4 @@ struct CharactersListView: View {
         
     }
     
-    // MARK: - Helpers
-    private func performSearch() {
-        vm.clearAll()
-        cache.removeAll()
-        Task { await vm.search(name: searchText) }
-    }
-
-    private func resetSearch() {
-        vm.clearAll()
-        cache.removeAll()
-        Task { await vm.search(name: "") }
-    }
 }

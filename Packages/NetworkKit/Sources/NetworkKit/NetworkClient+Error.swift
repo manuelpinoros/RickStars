@@ -40,7 +40,7 @@ extension NetworkError: LocalizedError {
         case .badStatusCode(let code): return "Error HTTP \(code)."
         case .decodingError: return "No se pudo interpretar la respuesta."
         case .urlError(let e): return e.localizedDescription
-        case .cancelled: return nil                       // silencio
+        case .cancelled: return nil
         case .unknown(let e): return e.localizedDescription
         }
     }

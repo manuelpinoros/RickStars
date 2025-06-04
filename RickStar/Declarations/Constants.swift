@@ -9,6 +9,8 @@ import SwiftUI
 let standardPadding: CGFloat = 8
 let standardRadius: CGFloat = 8
 
+let unexpectedErrorMessage: String = "Unexpected error"
+
 enum ButtonShape{
     case circle
     case rounded

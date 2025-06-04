@@ -4,16 +4,18 @@
 //
 //  Created by Manuel Pino Ros on 27/5/25.
 //
-
-
 import Foundation
 
-public struct EpisodePage: Decodable {
-    public let info: PageInfo
+public struct EpisodePage{
+    public let info: PageEpInfo
     public let results: [Episode]
 }
 
-public struct Episode: Decodable, Identifiable, Equatable, Hashable {
+public struct PageEpInfo: Decodable {
+    let next: String?
+}
+
+public struct Episode: Identifiable, Equatable, Hashable {
     public let id: Int
     public let name: String
     public let airDate: String
