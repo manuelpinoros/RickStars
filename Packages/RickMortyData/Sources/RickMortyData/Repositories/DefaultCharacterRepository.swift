@@ -9,23 +9,42 @@ import NetworkKit
 
 public final class DefaultCharacterRepository: CharacterRepository {
     private let client: NetworkClient
+    private let errorMapper: ErrorMapper
     
     public func characters(page: Int) async throws -> CharacterPage {
-        let dto: CharacterPageResponse = try await client.request(
-            RickMortyRoute.characters(page: page, name: nil).endpoint
-        )
-        return map(dto)
+        do {
+            let dto: CharacterPageResponse = try await client.request(
+                RickMortyRoute.characters(page: page, name: nil).endpoint
+            )
+            return map(dto)
+        } catch let netError as NetworkError {
+            throw errorMapper.map(netError)
+        } catch {
+            throw DomainError.unexpected
+        }
     }
     
-    public init(client: NetworkClient = URLSessionClient()) {
+    public init(client: NetworkClient, errorMapper: ErrorMapper) {
         self.client = client
+        self.errorMapper = errorMapper
+    }
+
+    public convenience init() {
+        self.init(client: URLSessionClient(),
+                  errorMapper: NetworkErrorMapper())
     }
 
     public func characters(page: Int, name: String?) async throws -> CharacterPage {
-        let dto: CharacterPageResponse = try await client.request(
-            RickMortyRoute.characters(page: page, name: name).endpoint
-        )
-        return map(dto)
+        do {
+            let dto: CharacterPageResponse = try await client.request(
+                RickMortyRoute.characters(page: page, name: name).endpoint
+            )
+            return map(dto)
+        } catch let netError as NetworkError {
+            throw errorMapper.map(netError)
+        } catch {
+            throw DomainError.unexpected
+        }
     }
 
     // MARK: - Mapping
