@@ -26,6 +26,8 @@ final class CharactersListViewModel {
     private var bag = Set<AnyCancellable>()
     
     private let prefetchThreshold = 5
+    private let searchThrottle: TimeInterval = 0.4   // 400 ms
+    private var lastSearchTimestamp: Date?
     
     // MARK: - UI State
     var alertMessage: String?
@@ -134,14 +136,30 @@ final class CharactersListViewModel {
         }
     }
 
-    func handleSearchChange(_ text: String) {
-        Task {
+    func handleSearchChange(_ text: String) async {
+        if text.isEmpty {
+            lastSearchTimestamp = nil
             do {
                 clearAll()
-                try await search(name: text)
+                try await search(name: "")
             } catch {
                 alertMessage = (error as? LocalizedError)?.errorDescription ?? unexpectedErrorMessage
             }
+            return
+        }
+        
+        let now = Date()
+        if let last = lastSearchTimestamp,
+           now.timeIntervalSince(last) < searchThrottle {
+           return
+        }
+        lastSearchTimestamp = now
+        
+        do {
+            clearAll()
+            try await search(name: text)
+        } catch {
+            alertMessage = (error as? LocalizedError)?.errorDescription ?? unexpectedErrorMessage
         }
     }
 }

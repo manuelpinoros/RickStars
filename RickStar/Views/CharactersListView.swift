@@ -30,7 +30,7 @@ struct CharactersListView: View {
                     if vm.isLoading && vm.items.isEmpty { ProgressView() }
                 }
                 .onChange(of: searchText) { _, newValue in
-                    vm.handleSearchChange(newValue)
+                    Task { await vm.handleSearchChange(newValue) }
                 }
                 .alert("Error",
                        isPresented: Binding(
