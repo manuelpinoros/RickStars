@@ -20,9 +20,11 @@ struct CharacterResponse: Decodable {
     let name: String
     let status: String      // “Alive”, “Dead”, “unknown”
     let species: String
-    let image: URL
+    let type: String
     let origin: OriginResponse
     let location: LocationResponse
+    let episode: [String]
+    let image: URL
 }
 
 struct OriginResponse: Decodable {

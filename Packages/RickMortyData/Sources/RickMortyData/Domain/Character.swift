@@ -7,16 +7,16 @@
 
 import Foundation
 
-public struct CharacterPage: Decodable {
+public struct CharacterPage {
     public let info: PageInfo
     public let results: [Character]
 }
 
-public struct PageInfo: Decodable {
+public struct PageInfo {
     public let next: String?
 }
 
-public struct Character: Decodable, Identifiable, Equatable, Hashable {
+public struct Character: Identifiable, Equatable, Hashable {
     public let id: Int
     public let name: String
     public let status: String
@@ -28,12 +28,12 @@ public struct Character: Decodable, Identifiable, Equatable, Hashable {
     public let image: URL
 }
 
-public struct ROrigin: Decodable, Equatable, Hashable {
+public struct ROrigin: Equatable, Hashable {
     public let name: String
     public let url: String
 }
 
-public struct RLocation: Decodable, Equatable, Hashable {
+public struct RLocation: Equatable, Hashable {
     public let name: String
     public let url: String
 }

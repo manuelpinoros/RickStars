@@ -8,24 +8,53 @@ import Foundation
 import NetworkKit
 
 public final class DefaultEpisodeRepository: EpisodeRepository {
+
     private let client: NetworkClient
+
     public init(client: NetworkClient = URLSessionClient()) {
-      self.client = client
+        self.client = client
     }
+
+    // MARK: - Public API
+
     public func episodes(page: Int) async throws -> EpisodePage {
-        let ep = RickMortyRoute.episodes(page: page).endpoint
-        return try await client.request(ep)
+        let endpoint = RickMortyRoute.episodes(page: page).endpoint
+        let dto: EpisodePageResponse = try await client.request(endpoint)
+        return map(dto)
     }
 
     public func episodes(ids: [Int]) async throws -> [Episode] {
-        let ep = RickMortyRoute.multipleEpisodes(ids: ids).endpoint
+        let endpoint = RickMortyRoute.multipleEpisodes(ids: ids).endpoint
+
         if ids.count == 1 {
-            // For single episode, the API returns a single object
-            let episode: Episode = try await client.request(ep)
-            return [episode]
+            // La API devuelve un objeto único cuando envías un solo id.
+            let dto: EpisodeResponse = try await client.request(endpoint)
+            return [map(dto)]
         } else {
-            // For multiple episodes, the API returns an array
-            return try await client.request(ep)
+            // Con varios ids devuelve un array de episodios.
+            let dtos: [EpisodeResponse] = try await client.request(endpoint)
+            return dtos.map(map)
         }
+    }
+
+    // MARK: - Mapping helpers
+
+    private func map(_ dto: EpisodePageResponse) -> EpisodePage {
+        EpisodePage(
+            info: PageEpInfo(next: dto.info.next),
+            results: dto.results.map(map)
+        )
+    }
+
+    private func map(_ dto: EpisodeResponse) -> Episode {
+        Episode(
+            id: dto.id,
+            name: dto.name,
+            airDate: dto.airDate,
+            code: dto.code,
+            characters: dto.characters,
+            url: dto.url,
+            created: dto.created
+        )
     }
 }
