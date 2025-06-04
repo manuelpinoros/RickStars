@@ -8,7 +8,6 @@
 
 import Foundation
 import SwiftUI
-import RickMortyDomain
 import RickMortyData
 
 @MainActor

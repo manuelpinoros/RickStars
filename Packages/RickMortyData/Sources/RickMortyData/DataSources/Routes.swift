@@ -6,7 +6,6 @@
 //
 import Foundation
 import NetworkKit
-import RickMortyDomain
 
 public enum RickMortyRoute {
     static let base = URL(string: "https://rickandmortyapi.com/api")!

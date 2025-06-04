@@ -7,7 +7,6 @@
 
 import SwiftUI
 import RickMortyData
-import RickMortyDomain
 
 @main
 struct RickStarApp: App {

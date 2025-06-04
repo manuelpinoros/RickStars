@@ -6,7 +6,6 @@
 //
 import Foundation
 import NetworkKit
-import RickMortyDomain
 
 public final class DefaultEpisodeRepository: EpisodeRepository {
     private let client: NetworkClient

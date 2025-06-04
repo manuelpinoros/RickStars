@@ -10,7 +10,6 @@
 		49D4AC712DE5AF1B00C32233 /* NetworkKit in Frameworks */ = {isa = PBXBuildFile; productRef = 49D4AC702DE5AF1B00C32233 /* NetworkKit */; };
 		49D4AC742DE5B08900C32233 /* NetworkKit in Frameworks */ = {isa = PBXBuildFile; productRef = 49D4AC732DE5B08900C32233 /* NetworkKit */; };
 		49D4AC772DE5B2EF00C32233 /* CacheKit in Frameworks */ = {isa = PBXBuildFile; productRef = 49D4AC762DE5B2EF00C32233 /* CacheKit */; };
-		49D4AC7A2DE5B33D00C32233 /* RickMortyDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 49D4AC792DE5B33D00C32233 /* RickMortyDomain */; };
 		49D4AC7D2DE5B39B00C32233 /* RickMortyData in Frameworks */ = {isa = PBXBuildFile; productRef = 49D4AC7C2DE5B39B00C32233 /* RickMortyData */; };
 /* End PBXBuildFile section */
 
@@ -64,7 +63,6 @@
 				49D4AC712DE5AF1B00C32233 /* NetworkKit in Frameworks */,
 				49D4AC772DE5B2EF00C32233 /* CacheKit in Frameworks */,
 				49D4AC7D2DE5B39B00C32233 /* RickMortyData in Frameworks */,
-				49D4AC7A2DE5B33D00C32233 /* RickMortyDomain in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,7 +126,6 @@
 				49D4AC702DE5AF1B00C32233 /* NetworkKit */,
 				49D4AC732DE5B08900C32233 /* NetworkKit */,
 				49D4AC762DE5B2EF00C32233 /* CacheKit */,
-				49D4AC792DE5B33D00C32233 /* RickMortyDomain */,
 				49D4AC7C2DE5B39B00C32233 /* RickMortyData */,
 			);
 			productName = RickStar;
@@ -218,7 +215,6 @@
 			packageReferences = (
 				49D4AC722DE5B08900C32233 /* XCLocalSwiftPackageReference "Packages/NetworkKit" */,
 				49D4AC752DE5B2EF00C32233 /* XCLocalSwiftPackageReference "Packages/CacheKit" */,
-				49D4AC782DE5B33D00C32233 /* XCLocalSwiftPackageReference "Packages/RickMortyDomain" */,
 				49D4AC7B2DE5B39B00C32233 /* XCLocalSwiftPackageReference "Packages/RickMortyData" */,
 			);
 			preferredProjectObjectVersion = 77;
@@ -627,10 +623,6 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/CacheKit;
 		};
-		49D4AC782DE5B33D00C32233 /* XCLocalSwiftPackageReference "Packages/RickMortyDomain" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = Packages/RickMortyDomain;
-		};
 		49D4AC7B2DE5B39B00C32233 /* XCLocalSwiftPackageReference "Packages/RickMortyData" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/RickMortyData;
@@ -649,10 +641,6 @@
 		49D4AC762DE5B2EF00C32233 /* CacheKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CacheKit;
-		};
-		49D4AC792DE5B33D00C32233 /* RickMortyDomain */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = RickMortyDomain;
 		};
 		49D4AC7C2DE5B39B00C32233 /* RickMortyData */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -6,7 +6,6 @@
 //
 import Foundation
 import NetworkKit
-import RickMortyDomain
 
 public final class DefaultCharacterRepository: CharacterRepository {
   private let client: NetworkClient

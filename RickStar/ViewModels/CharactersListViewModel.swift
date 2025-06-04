@@ -1,6 +1,6 @@
 import Foundation
 import Combine
-import RickMortyDomain
+import RickMortyData
 import NetworkKit
 import UIKit
 

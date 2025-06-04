@@ -6,7 +6,6 @@
 //
 import SwiftUI
 import RickMortyData
-import RickMortyDomain
 
 struct EpisodesList: View {
     
