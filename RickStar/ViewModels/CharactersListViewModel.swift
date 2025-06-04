@@ -1,3 +1,9 @@
+//
+//  CharactersListView.swift
+//  RickStar
+//
+//  Created by Manuel Pino Ros on 27/5/25.
+//
 import Foundation
 import Combine
 import RickMortyData
@@ -19,6 +25,8 @@ final class CharactersListViewModel {
     private let router: Router
     private var bag = Set<AnyCancellable>()
     
+    private let prefetchThreshold = 5
+    
     var uiError: String?
     var imagesByURL: [URL: UIImage] = [:]
     
@@ -38,38 +46,44 @@ final class CharactersListViewModel {
             .store(in: &bag)
     }
 
-    func load() async {
+    func load() async throws {
         guard !isLoading, canLoadMore else { return }
         isLoading = true
         defer { isLoading = false }
-
-        do {
-            let pageData = try await repo.characters(page: page, name: currentName)
-            items += pageData.results
-            canLoadMore = pageData.info.next != nil
-            page += 1
-            return
-        } catch NetworkError.cancelled {
-            return  //Network client cancell
-        } catch {
-            uiError = (error as? LocalizedError)?.errorDescription ?? "Error desconocido"
-        }
+        
+        let pageData = try await repo.characters(page: page, name: currentName)
+        items.append(contentsOf: pageData.results)
+        canLoadMore = pageData.info.next != nil
+        page += 1
     }
 
     private func reloadFromScratch() async {
         page = 1
         canLoadMore = true
         items.removeAll()
-        await load()
+        do {
+            try await load()
+        } catch NetworkError.cancelled {
+            debugPrint("request cancel")
+        } catch {
+            uiError = (error as? LocalizedError)?.errorDescription ?? "Error desconocido"
+        }
     }
     
     func prefetchIfNeeded(index: Int) {
-        guard index >= items.count - 5,
+        guard index >= items.count - prefetchThreshold,
               canLoadMore,
               !isLoading else { return }
 
-        Task.detached(priority: .utility) { [weak self] in
-            await self?.load()
+        Task { [weak self] in
+            guard let self = self else { return }
+            do {
+                try await self.load()
+            } catch NetworkError.cancelled {
+                debugPrint("request cancel")
+            } catch {
+                self.uiError = (error as? LocalizedError)?.errorDescription ?? "Error desconocido"
+            }
         }
     }
     
@@ -78,7 +92,11 @@ final class CharactersListViewModel {
         page = 1
         canLoadMore = true
         items.removeAll()
-        await load()
+        do {
+            try await load()
+        } catch {
+            uiError = (error as? LocalizedError)?.errorDescription ?? "Error desconocido"
+        }
     }
     
     func clearAll() {

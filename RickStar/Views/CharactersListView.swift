@@ -8,7 +8,7 @@ import SwiftUI
 
 struct CharactersListView: View {
     
-    @State var vm: CharactersListViewModel
+    var vm: CharactersListViewModel
     @State private var searchText: String = ""
     
     var body: some View {
@@ -23,10 +23,10 @@ struct CharactersListView: View {
                     )
                     .id(character.id)
                     .task {
-                        await vm.loadImage(from: character.image)
                         if let idx = vm.items.firstIndex(where: { $0.id == character.id }) {
                             vm.prefetchIfNeeded(index: idx)
                         }
+                        await vm.loadImage(from: character.image)
                     }
                     .onTapGesture { vm.showDetail(character) }
                 }
@@ -53,7 +53,13 @@ struct CharactersListView: View {
                        message: {
                     Text(vm.uiError ?? "")
                 })
-                .task { await vm.load() }
+                .task {
+                    do {
+                        try await vm.load()
+                    } catch {
+                        // La vista ya mostrará el error a través de vm.uiError
+                    }
+                }
             }
             .overlay(alignment: .bottomTrailing) {
                 CustomButton(
