@@ -7,17 +7,19 @@
 
 import SwiftUI
 import RickMortyData
+import RickMortyDomain
 
 @main
 struct RickStarApp: App {
     
     private let repo = DefaultCharacterRepository()
+    private let imageRepo = DefaultCharactersImageRepository()
     @State private var router = Router()
 
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router.path) {
-                CharactersListView(vm: .init(repo: repo))
+                CharactersListView(vm: .init(repo: repo, imageRepo: imageRepo))
                     .environment(router)
                     .navigationDestination(for: Router.Route.self) { route in
                         switch route {
