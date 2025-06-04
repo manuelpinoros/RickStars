@@ -26,7 +26,11 @@ struct CharactersListView: View {
                         if let idx = vm.items.firstIndex(where: { $0.id == character.id }) {
                             vm.prefetchIfNeeded(index: idx)
                         }
-                        await vm.loadImage(from: character.image)
+                        do {
+                            try await vm.loadImage(from: character.image)
+                        } catch {
+                            vm.uiError = (error as? LocalizedError)?.errorDescription ?? "Error desconocido"
+                        }
                     }
                     .onTapGesture { vm.showDetail(character) }
                 }
@@ -85,11 +89,17 @@ struct CharactersListView: View {
     // MARK: - Helpers
     private func performSearch() {
         vm.clearAll()
-        Task { await vm.search(name: searchText) }
+        Task {
+            do { try await vm.search(name: searchText) }
+            catch { vm.uiError = (error as? LocalizedError)?.errorDescription ?? "Error desconocido" }
+        }
     }
     
     private func resetSearch() {
         vm.clearAll()
-        Task { await vm.search(name: "") }
+        Task {
+            do { try await vm.search(name: "") }
+            catch { vm.uiError = (error as? LocalizedError)?.errorDescription ?? "Error desconocido" }
+        }
     }
 }

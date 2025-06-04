@@ -41,7 +41,14 @@ final class CharactersListViewModel {
             .removeDuplicates()
             .filter { $0 }
             .sink { [weak self] _ in
-                Task { await self?.reloadFromScratch() }
+                Task { [weak self] in
+                    guard let self else { return }
+                    do {
+                        try await self.reloadFromScratch()
+                    } catch {
+                        self.uiError = (error as? LocalizedError)?.errorDescription ?? "Error desconocido"
+                    }
+                }
             }
             .store(in: &bag)
     }
@@ -57,17 +64,11 @@ final class CharactersListViewModel {
         page += 1
     }
 
-    private func reloadFromScratch() async {
+    private func reloadFromScratch() async throws {
         page = 1
         canLoadMore = true
         items.removeAll()
-        do {
-            try await load()
-        } catch NetworkError.cancelled {
-            debugPrint("request cancel")
-        } catch {
-            uiError = (error as? LocalizedError)?.errorDescription ?? "Error desconocido"
-        }
+        try await load()
     }
     
     func prefetchIfNeeded(index: Int) {
@@ -87,16 +88,12 @@ final class CharactersListViewModel {
         }
     }
     
-    func search(name: String) async {
+    func search(name: String) async throws {
         currentName = name.isEmpty ? nil : name
         page = 1
         canLoadMore = true
         items.removeAll()
-        do {
-            try await load()
-        } catch {
-            uiError = (error as? LocalizedError)?.errorDescription ?? "Error desconocido"
-        }
+        try await load()
     }
     
     func clearAll() {
@@ -106,14 +103,11 @@ final class CharactersListViewModel {
         items.removeAll()
     }
     
-    func loadImage(from url: URL) async {
+    func loadImage(from url: URL) async throws {
+        // Evitar descargas duplicadas
         if imagesByURL[url] != nil { return }
-        do {
-            let image = try await imageRepo.loadImage(from: url)
-            imagesByURL[url] = image
-        } catch {
-            print("Error loading image: \(error)")
-        }
+        let image = try await imageRepo.loadImage(from: url)
+        imagesByURL[url] = image
     }
     
     func showDetail(_ character: Character) {
