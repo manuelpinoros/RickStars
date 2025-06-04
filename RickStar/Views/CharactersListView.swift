@@ -28,9 +28,6 @@ struct CharactersListView: View {
                         if let idx = vm.items.firstIndex(where: { $0.id == character.id }) {
                             vm.prefetchIfNeeded(index: idx)
                         }
-//                        if let url = character.image {
-//                            await vm.loadImage(from: url)
-//                        }
                     }
                     .onTapGesture { router.pushDetail(character) }
                 }
