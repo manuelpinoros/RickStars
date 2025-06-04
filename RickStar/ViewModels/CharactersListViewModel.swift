@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import RickMortyDomain
 import NetworkKit
+import UIKit
 
 @MainActor
 @Observable
@@ -14,12 +15,15 @@ final class CharactersListViewModel {
     private var page = 1
     private var canLoadMore = true
     private let repo: CharacterRepository
+    private let imageRepo: CharactersImageRepository
     private var bag = Set<AnyCancellable>()
     
     var uiError: String?
+    var imagesByURL: [URL: UIImage] = [:]
     
-    init(repo: CharacterRepository) {
+    init(repo: CharacterRepository, imageRepo: CharactersImageRepository) {
         self.repo = repo
+        self.imageRepo = imageRepo
         
         connectivity.$isConnected
             .removeDuplicates()
@@ -78,5 +82,15 @@ final class CharactersListViewModel {
         page = 1
         canLoadMore = true
         items.removeAll()
+    }
+    
+    func loadImage(from url: URL) async {
+        if imagesByURL[url] != nil { return }
+        do {
+            let image = try await imageRepo.loadImage(from: url)
+            imagesByURL[url] = image
+        } catch {
+            print("Error loading image: \(error)")
+        }
     }
 }
