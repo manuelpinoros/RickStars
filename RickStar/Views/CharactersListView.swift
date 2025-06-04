@@ -61,7 +61,7 @@ struct CharactersListView: View {
                     do {
                         try await vm.load()
                     } catch {
-                        // La vista ya mostrará el error a través de vm.uiError
+                        //We will show the error with vm.uiError
                     }
                 }
             }

@@ -104,7 +104,6 @@ final class CharactersListViewModel {
     }
     
     func loadImage(from url: URL) async throws {
-        // Evitar descargas duplicadas
         if imagesByURL[url] != nil { return }
         let image = try await imageRepo.loadImage(from: url)
         imagesByURL[url] = image

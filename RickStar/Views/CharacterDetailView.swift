@@ -11,6 +11,7 @@ struct CharacterDetailView: View {
     
     @Environment(\.dismiss) private var dismiss
     @State private var vm: CharacterDetailViewModel
+    @State private var episodesErrorMessage: String?
     
     init(character: Character) {
         _vm = State(wrappedValue: CharacterDetailViewModel(character: character))
@@ -64,17 +65,23 @@ struct CharacterDetailView: View {
         }
         .detailNavigationStyle(title: vm.character.name,
                               dismissAction: dismiss)
+        .task {
+            do {
+                try await vm.loadEpisodes()
+            } catch {
+                episodesErrorMessage = error.localizedDescription
+            }
+        }
         .alert("Error",
                isPresented: Binding<Bool>(
-                   get: { vm.episodesError != nil },
-                   set: { if !$0 { vm.episodesError = nil } }
+                   get: { episodesErrorMessage != nil },
+                   set: { if !$0 { episodesErrorMessage = nil } }
                ),
                actions: {
-                   Button("OK") { vm.episodesError = nil }
+                   Button("OK") { episodesErrorMessage = nil }
                },
                message: {
-                   Text(vm.episodesError ?? "")
+                   Text(episodesErrorMessage ?? "")
                })
-        .task { await vm.loadEpisodes() }
     }
 }

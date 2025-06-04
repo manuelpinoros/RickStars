@@ -35,7 +35,6 @@ public final class DefaultEpisodeRepository: EpisodeRepository {
     }
 
     // MARK: - Mapping helpers
-
     private func map(_ dto: EpisodePageResponse) -> EpisodePage {
         EpisodePage(
             info: PageEpInfo(next: dto.info.next),

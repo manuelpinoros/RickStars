@@ -10,6 +10,16 @@ import Foundation
 import SwiftUI
 import RickMortyData
 
+enum EpisodeLoadError: LocalizedError {
+    case noEpisodeIds
+    var errorDescription: String? {
+        switch self {
+        case .noEpisodeIds:
+            return "Character does not appear in any episode"
+        }
+    }
+}
+
 @MainActor
 @Observable
 final class CharacterDetailViewModel {
@@ -17,7 +27,6 @@ final class CharacterDetailViewModel {
     private let episodeRepo: EpisodeRepository
     let character: Character
     var episodes: [Episode] = []
-    var episodesError: String?
 
     init(
         character: Character,
@@ -27,19 +36,17 @@ final class CharacterDetailViewModel {
         self.episodeRepo = episodeRepo
     }
 
-    func loadEpisodes() async {
+    func loadEpisodes() async throws {
         guard episodes.isEmpty else { return }
-
+        
         let ids = character.episode
             .compactMap { URL(string: $0)?.lastPathComponent }
             .compactMap(Int.init)
-
-        guard !ids.isEmpty else { return }
-
-        do {
-            episodes = try await episodeRepo.episodes(ids: ids)
-        } catch {
-            episodesError = error.localizedDescription
+        
+        guard !ids.isEmpty else {
+            throw EpisodeLoadError.noEpisodeIds
         }
+        
+        episodes = try await episodeRepo.episodes(ids: ids)
     }
 }
