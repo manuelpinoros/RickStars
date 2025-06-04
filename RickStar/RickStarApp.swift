@@ -19,8 +19,9 @@ struct RickStarApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router.path) {
-                CharactersListView(vm: .init(repo: repo, imageRepo: imageRepo))
-                    .environment(router)
+                CharactersListView(vm: .init(repo: repo,
+                                             imageRepo: imageRepo,
+                                             router: router))
                     .navigationDestination(for: Router.Route.self) { route in
                         switch route {
                         case .detail(let character):

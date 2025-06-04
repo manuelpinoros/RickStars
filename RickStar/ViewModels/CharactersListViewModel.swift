@@ -16,14 +16,18 @@ final class CharactersListViewModel {
     private var canLoadMore = true
     private let repo: CharacterRepository
     private let imageRepo: CharactersImageRepository
+    private let router: Router
     private var bag = Set<AnyCancellable>()
     
     var uiError: String?
     var imagesByURL: [URL: UIImage] = [:]
     
-    init(repo: CharacterRepository, imageRepo: CharactersImageRepository) {
+    init(repo: CharacterRepository,
+         imageRepo: CharactersImageRepository,
+         router: Router) {
         self.repo = repo
         self.imageRepo = imageRepo
+        self.router = router
         
         connectivity.$isConnected
             .removeDuplicates()
@@ -92,5 +96,9 @@ final class CharactersListViewModel {
         } catch {
             print("Error loading image: \(error)")
         }
+    }
+    
+    func showDetail(_ character: Character) {
+        router.pushDetail(character)
     }
 }

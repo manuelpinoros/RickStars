@@ -10,7 +10,6 @@ struct CharactersListView: View {
     
     @State var vm: CharactersListViewModel
     @State private var searchText: String = ""
-    @Environment(Router.self) var router: Router
     
     var body: some View {
         ScrollViewReader { proxy in
@@ -29,7 +28,7 @@ struct CharactersListView: View {
                             vm.prefetchIfNeeded(index: idx)
                         }
                     }
-                    .onTapGesture { router.pushDetail(character) }
+                    .onTapGesture { vm.showDetail(character) }
                 }
                 .characterListStyle()
                 .overlay {
