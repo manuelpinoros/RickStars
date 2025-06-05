@@ -5,7 +5,7 @@
 //  Created by Manuel Pino Ros on 27/5/25.
 //
 import SwiftUI
-import RickMortyData
+import RickMortyDomain
 
 @MainActor
 @Observable

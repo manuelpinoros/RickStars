@@ -7,6 +7,7 @@
 
 import Foundation
 import NetworkKit
+import RickMortyDomain
 
 public protocol ErrorMapper {
     func map(_ error: NetworkError) -> DomainError

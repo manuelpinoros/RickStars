@@ -6,7 +6,7 @@
 //
 import Foundation
 import Combine
-import RickMortyData
+import RickMortyDomain
 import NetworkKit
 import UIKit
 

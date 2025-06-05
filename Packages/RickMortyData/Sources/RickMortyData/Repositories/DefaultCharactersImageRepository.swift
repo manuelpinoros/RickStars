@@ -5,6 +5,7 @@
 //  Created by Manuel Pino Ros on 4/6/25.
 //
 import UIKit
+import RickMortyDomain
 
 public final class DefaultCharactersImageRepository: CharactersImageRepository {
     private let local: CharactersImageLocalDatasource
