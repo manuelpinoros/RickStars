@@ -15,14 +15,14 @@ struct CharactersListView: View {
         ScrollViewReader { proxy in
             VStack {
                 SearchBarView(searchText: $searchText)
-                List(vm.items, id: \.id) { character in
+                List(vm.items, id: \.id) { rickCharacter in
                     CharacterRow(
-                        character: character,
-                        image: vm.imagesByURL[character.image]
+                        rickCharacter: rickCharacter,
+                        image: vm.imagesByURL[rickCharacter.image]
                     )
-                    .id(character.id)
-                    .task { await vm.onRowAppear(character) }
-                    .onTapGesture { vm.showDetail(character) }
+                    .id(rickCharacter.id)
+                    .task { await vm.onRowAppear(rickCharacter) }
+                    .onTapGesture { vm.showDetail(rickCharacter) }
                 }
                 .characterListStyle()
                 .overlay {

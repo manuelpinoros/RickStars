@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+import RickMortyDomain
 import RickMortyData
 
 enum EpisodeLoadError: LocalizedError {
@@ -25,21 +26,21 @@ enum EpisodeLoadError: LocalizedError {
 final class CharacterDetailViewModel {
     
     private let episodeRepo: EpisodeRepository
-    let character: Character
+    let rickCharacter: RickCharacter
     var episodes: [Episode] = []
 
     init(
-        character: Character,
+        rickCharacter: RickCharacter,
         episodeRepo: EpisodeRepository = DefaultEpisodeRepository()
     ) {
-        self.character = character
+        self.rickCharacter = rickCharacter
         self.episodeRepo = episodeRepo
     }
 
     func loadEpisodes() async throws {
         guard episodes.isEmpty else { return }
         
-        let ids = character.episode
+        let ids = rickCharacter.episode
             .compactMap { URL(string: $0)?.lastPathComponent }
             .compactMap(Int.init)
         

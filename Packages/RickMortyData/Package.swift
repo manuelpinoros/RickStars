@@ -6,11 +6,12 @@ let package = Package(
     platforms: [.iOS(.v17)],
     products: [.library(name: "RickMortyData", targets: ["RickMortyData"])],
     dependencies: [
-        .package(path: "../NetworkKit")
+        .package(path: "../NetworkKit"),
+        .package(path: "../RickMortyDomain")
     ],
     targets: [
         .target(name: "RickMortyData",
-                dependencies: ["NetworkKit"]),
+                dependencies: ["NetworkKit", "RickMortyDomain"]),
         .testTarget(name: "RickMortyDataTests",
                     dependencies: ["RickMortyData"])
     ]

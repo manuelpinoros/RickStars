@@ -5,15 +5,15 @@
 //  Created by Manuel Pino Ros on 27/5/25.
 //
 import SwiftUI
-import RickMortyData
+import RickMortyDomain
 
 @MainActor
 @Observable
 final class Router {
     
     var path = NavigationPath()
-    func pushDetail(_ character: Character) { path.append(Route.detail(character)) }
+    func pushDetail(_ rickCharacter: RickCharacter) { path.append(Route.detail(rickCharacter)) }
     enum Route: Hashable {
-        case detail(Character)
+        case detail(RickCharacter)
     }
 }

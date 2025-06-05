@@ -5,11 +5,11 @@
 //  Created by Manuel Pino Ros on 27/5/25.
 //
 import SwiftUI
-import RickMortyData
+import RickMortyDomain
 
 struct CharacterRow: View {
     
-    let character: Character
+    let rickCharacter: RickCharacter
     let image: UIImage?
     
     public var body: some View {
@@ -19,21 +19,21 @@ struct CharacterRow: View {
                     Image(uiImage: uiImage)
                         .resizable()
                         .frame(width: 100, height: 100)
-                        .statusBorderCircle(CharacterStatus(rawValue: character.status.lowercased()) ?? .unknown, lineWidth: 4)
+                        .statusBorderCircle(CharacterStatus(rawValue: rickCharacter.status.lowercased()) ?? .unknown, lineWidth: 4)
                         .padding([.leading, .top], standardPadding)
                 } else {
                     Image(systemName: "person.crop.circle")
                         .resizable()
                         .frame(width: 100, height: 100)
-                        .statusBorderCircle(CharacterStatus(rawValue: character.status.lowercased()) ?? .unknown, lineWidth: 4)
+                        .statusBorderCircle(CharacterStatus(rawValue: rickCharacter.status.lowercased()) ?? .unknown, lineWidth: 4)
                         .padding([.leading, .top], standardPadding)
                 }
                 Spacer()
             }
-            CharacterRowTextData(name: character.name,
-                                 origin: character.origin.name,
-                                 species: character.species,
-                                 lastSeen: character.location.name)
+            CharacterRowTextData(name: rickCharacter.name,
+                                 origin: rickCharacter.origin.name,
+                                 species: rickCharacter.species,
+                                 lastSeen: rickCharacter.location.name)
                 .padding(.leading, 8)
                 .frame(maxWidth: .infinity, alignment: .leading)
         }

@@ -31,8 +31,8 @@ struct RickStarApp: App {
                 CharactersListView(vm: characterListVM)
                     .navigationDestination(for: Router.Route.self) { route in
                         switch route {
-                        case .detail(let character):
-                            CharacterDetailView(character: character)
+                        case .detail(let rickCharacter):
+                            CharacterDetailView(rickCharacter: rickCharacter)
                         }
                     }
             }
