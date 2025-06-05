@@ -16,7 +16,7 @@ final class CharactersListViewModel {
     
     private var connectivity = NetworkMonitor.shared
     private var currentName: String? = nil
-    private(set) var items: [Character] = []
+    private(set) var items: [RickCharacter] = []
     private(set) var isLoading = false
     private var page = 1
     private var canLoadMore = true
@@ -113,8 +113,8 @@ final class CharactersListViewModel {
         imagesByURL[url] = image
     }
     
-    func showDetail(_ character: Character) {
-        router.pushDetail(character)
+    func showDetail(_ rickCharacter: RickCharacter) {
+        router.pushDetail(rickCharacter)
     }
     
     // MARK: - View helpers (side‑effects isolated here)
@@ -126,12 +126,12 @@ final class CharactersListViewModel {
         }
     }
 
-    func onRowAppear(_ character: Character) async {
-        if let idx = items.firstIndex(where: { $0.id == character.id }) {
+    func onRowAppear(_ rickCharacter: RickCharacter) async {
+        if let idx = items.firstIndex(where: { $0.id == rickCharacter.id }) {
             prefetchIfNeeded(index: idx)
         }
         do {
-            try await loadImage(from: character.image)
+            try await loadImage(from: rickCharacter.image)
         } catch {
             alertMessage = (error as? LocalizedError)?.errorDescription ?? unexpectedErrorMessage
         }

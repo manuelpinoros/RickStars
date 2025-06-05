@@ -13,14 +13,14 @@ struct CharacterDetailView: View {
     @State private var vm: CharacterDetailViewModel
     @State private var episodesErrorMessage: String?
     
-    init(character: Character) {
-        _vm = State(wrappedValue: CharacterDetailViewModel(character: character))
+    init(rickCharacter: RickCharacter) {
+        _vm = State(wrappedValue: CharacterDetailViewModel(rickCharacter: rickCharacter))
     }
     
     var body: some View {
         
         VStack(alignment: .leading, spacing: 16) {
-            AsyncImage(url: vm.character.image) { phase in
+            AsyncImage(url: vm.rickCharacter.image) { phase in
                 switch phase {
                 case .success(let img): img.resizable()
                 default: ProgressView()
@@ -28,17 +28,17 @@ struct CharacterDetailView: View {
             }
             .frame(width: 160, height: 160)
             .clipShape(Circle())
-            .statusBorderCircle(CharacterStatus(rawValue: vm.character.status.lowercased()) ?? .unknown,
+            .statusBorderCircle(CharacterStatus(rawValue: vm.rickCharacter.status.lowercased()) ?? .unknown,
                                 lineWidth: 4)
             .frame(maxWidth: .infinity)
             
             ScrollView(.vertical, showsIndicators: false) {
-                CharacterDetailTextData(name: vm.character.name,
-                                        status: vm.character.status,
-                                        specie: vm.character.species,
-                                        typeRM: vm.character.type,
-                                        originRM: vm.character.origin.name,
-                                        lastSeen: vm.character.location.name,
+                CharacterDetailTextData(name: vm.rickCharacter.name,
+                                        status: vm.rickCharacter.status,
+                                        specie: vm.rickCharacter.species,
+                                        typeRM: vm.rickCharacter.type,
+                                        originRM: vm.rickCharacter.origin.name,
+                                        lastSeen: vm.rickCharacter.location.name,
                                         appearIn: vm.episodes.count)
                 
                 VStack(alignment: .leading, spacing: 16) {
@@ -63,7 +63,7 @@ struct CharacterDetailView: View {
                 )
             }
         }
-        .detailNavigationStyle(title: vm.character.name,
+        .detailNavigationStyle(title: vm.rickCharacter.name,
                               dismissAction: dismiss)
         .task {
             do {

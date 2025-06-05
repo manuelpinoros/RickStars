@@ -9,14 +9,14 @@ import Foundation
 
 public struct CharacterPage {
     public let info: PageInfo
-    public let results: [Character]
+    public let results: [RickCharacter]
 }
 
 public struct PageInfo {
     public let next: String?
 }
 
-public struct Character: Identifiable, Equatable, Hashable {
+public struct RickCharacter: Identifiable, Equatable, Hashable {
     public let id: Int
     public let name: String
     public let status: String

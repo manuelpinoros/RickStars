@@ -55,8 +55,8 @@ public final class DefaultCharacterRepository: CharacterRepository {
         )
     }
 
-    private func map(_ dto: CharacterResponse) -> Character {
-        Character(
+    private func map(_ dto: CharacterResponse) -> RickCharacter {
+        RickCharacter(
             id: dto.id,
             name: dto.name,
             status: dto.status,

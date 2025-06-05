@@ -12,8 +12,8 @@ import RickMortyData
 final class Router {
     
     var path = NavigationPath()
-    func pushDetail(_ character: Character) { path.append(Route.detail(character)) }
+    func pushDetail(_ rickCharacter: RickCharacter) { path.append(Route.detail(rickCharacter)) }
     enum Route: Hashable {
-        case detail(Character)
+        case detail(RickCharacter)
     }
 }

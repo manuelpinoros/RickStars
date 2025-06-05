@@ -12,7 +12,7 @@ public struct EpisodePage{
 }
 
 public struct PageEpInfo: Decodable {
-    let next: String?
+    public let next: String?
 }
 
 public struct Episode: Identifiable, Equatable, Hashable {
