@@ -10,7 +10,6 @@ import RickMortyDomain
 @MainActor
 @Observable
 final class Router {
-    
     var path = NavigationPath()
     func pushDetail(_ rickCharacter: RickCharacter) { path.append(Route.detail(rickCharacter)) }
     enum Route: Hashable {

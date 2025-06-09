@@ -15,34 +15,38 @@ struct CharactersListView: View {
         ScrollViewReader { proxy in
             VStack {
                 SearchBarView(searchText: $searchText)
-                List(vm.items, id: \.id) { rickCharacter in
+        ScrollView {
+            LazyVStack {
+                ForEach(vm.items, id: \.id) { rickCharacter in
                     CharacterRow(
                         rickCharacter: rickCharacter,
                         image: vm.imagesByURL[rickCharacter.image]
                     )
+                    .padding(.horizontal)
                     .id(rickCharacter.id)
                     .task { await vm.onRowAppear(rickCharacter) }
                     .onTapGesture { vm.showDetail(rickCharacter) }
                 }
-                .characterListStyle()
-                .overlay {
-                    if vm.isLoading && vm.items.isEmpty { ProgressView() }
-                }
-                .onChange(of: searchText) { _, newValue in
-                    Task { await vm.handleSearchChange(newValue) }
-                }
-                .alert("Error",
-                       isPresented: Binding(
-                        get: { vm.alertMessage != nil },
-                        set: { if !$0 { vm.alertMessage = nil } }
-                       ),
-                       actions: {
-                    Button("OK", role: .cancel) { vm.alertMessage = nil }
-                },
-                       message: {
-                    Text(vm.alertMessage ?? "")
-                })
-                .task { await vm.onViewAppear() }
+            }
+        }
+        .overlay {
+            if vm.isLoading && vm.items.isEmpty { ProgressView() }
+        }
+        .onChange(of: searchText) { _, newValue in
+            Task { await vm.handleSearchChange(newValue) }
+        }
+        .alert("Error",
+               isPresented: Binding(
+                get: { vm.alertMessage != nil },
+                set: { if !$0 { vm.alertMessage = nil } }
+               ),
+               actions: {
+            Button("OK", role: .cancel) { vm.alertMessage = nil }
+        },
+               message: {
+            Text(vm.alertMessage ?? "")
+        })
+        .task { await vm.onViewAppear() }
             }
             .overlay(alignment: .bottomTrailing) {
                 CustomButton(
