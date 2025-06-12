@@ -8,23 +8,69 @@ import Foundation
 import Network
 import Combine
 
-@MainActor
-public final class NetworkMonitor: ObservableObject {
-    public static let shared = NetworkMonitor()
+//MARK: NetworkPathMonitorProtocol
+protocol NetworkPathMonitorProtocol: Sendable {
+    func start(queue: DispatchQueue)
+    var currentPath: NWPath { get }
+    var pathUpdateHandler: (@Sendable (_ newPath: NWPath) -> Void)? { get set }
+}
+
+extension NWPathMonitor: NetworkPathMonitorProtocol {}
+
+//MARK: NetworkPath
+public struct NetworkPath {
+    public var status: NWPath.Status
+    
+    public init(status: NWPath.Status) {
+        self.status = status
+    }
+}
+
+extension NetworkPath {
+    public init(rawValue: NWPath) {
+        self.status = rawValue.status
+    }
+}
+
+extension NetworkPath: Equatable {}
+
+//MARK: PathCreation
+protocol PathCreationProtocol {
+    var networkPathPublisher: AnyPublisher<NetworkPath, Never>? { get }
+    func start()
+}
+
+final class PathCreation: PathCreationProtocol {
+    public var networkPathPublisher: AnyPublisher<NetworkPath, Never>?
+    private let subject = PassthroughSubject<NWPath, Never>()
     private let monitor = NWPathMonitor()
-    private let queue   = DispatchQueue(label: "NetworkMonitorQueue")
     
-    @Published public private(set) var isConnected: Bool = true
-    @Published public private(set) var interfaceType: NWInterface.InterfaceType?
+    func start() {
+        monitor.pathUpdateHandler = subject.send
+        networkPathPublisher = subject
+            .handleEvents(
+                receiveSubscription: { _ in self.monitor.start(queue: .main) },
+                receiveCancel: monitor.cancel
+            )
+            .map(NetworkPath.init(rawValue:))
+            .eraseToAnyPublisher()
+    }
+}
+
+//MARK: Utilitie class
+final class NetworkPathMonitor: ObservableObject {
+    @Published var isConnected = true
     
-    private init() {
-        monitor.pathUpdateHandler = { [weak self] path in
-            Task { @MainActor in
-                self?.isConnected = path.status == .satisfied
-                self?.interfaceType = path.availableInterfaces
-                    .first(where: { path.usesInterfaceType($0.type) })?.type
-            }
-        }
-        monitor.start(queue: queue)
+    private var pathUpdateCancellable: AnyCancellable?
+    let paths: PathCreationProtocol
+    init(
+        paths: PathCreationProtocol = PathCreation()
+    ) {
+        self.paths = paths
+        paths.start()
+        self.pathUpdateCancellable = paths.networkPathPublisher?
+            .sink(receiveValue: { [weak self] isConnected in
+                self?.isConnected = isConnected == NetworkPath(status: .satisfied)
+            })
     }
 }
