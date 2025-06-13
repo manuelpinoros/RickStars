@@ -29,7 +29,7 @@ public final class DefaultEpisodeRepository: EpisodeRepository {
             let dto: EpisodePageResponse = try await client.request(endpoint)
             return map(dto)
         } catch let netError as NetworkError {
-            throw errorMapper.map(netError)
+            throw errorMapper.mapTo(netError)
         } catch {
             throw DomainError.unexpected
         }
@@ -46,7 +46,7 @@ public final class DefaultEpisodeRepository: EpisodeRepository {
                 return dtos.map(map)
             }
         } catch let netError as NetworkError {
-            throw errorMapper.map(netError)
+            throw errorMapper.mapTo(netError)
         } catch {
             throw DomainError.unexpected
         }

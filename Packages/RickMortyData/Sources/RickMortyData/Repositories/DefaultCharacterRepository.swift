@@ -19,7 +19,7 @@ public final class DefaultCharacterRepository: CharacterRepository {
             )
             return map(dto)
         } catch let netError as NetworkError {
-            throw errorMapper.map(netError)
+            throw errorMapper.mapTo(netError)
         } catch {
             throw DomainError.unexpected
         }
@@ -42,7 +42,7 @@ public final class DefaultCharacterRepository: CharacterRepository {
             )
             return map(dto)
         } catch let netError as NetworkError {
-            throw errorMapper.map(netError)
+            throw errorMapper.mapTo(netError)
         } catch {
             throw DomainError.unexpected
         }

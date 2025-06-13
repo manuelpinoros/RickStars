@@ -115,7 +115,7 @@ private class MockNetworkClient: NetworkClient {
 private class MockErrorMapper: ErrorMapper {
     var mappedError: DomainError = .unexpected
     
-    func map(_ error: NetworkError) -> DomainError {
+    func mapTo(_ error: NetworkError) -> DomainError {
         return mappedError
     }
 } 
