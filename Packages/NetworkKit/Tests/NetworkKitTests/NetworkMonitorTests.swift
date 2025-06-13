@@ -18,7 +18,14 @@ final class NetworkMonitorTests: XCTestCase {
         )
 
         XCTAssertTrue(sut.isConnected, "NetworkMonitor should default to `.satisfied` on launch (i.e. `isConnected == true`).")
-       // XCTAssertNil(sut.interfaceType, "interfaceType should be `nil` until the first path-update callback arrives.")
+    }
+    
+    func testInitialStateIsConnectedFalse() {
+        let sut = NetworkPathMonitor(
+            paths: MockPathCreation(status: .init(status: .unsatisfied))
+        )
+
+        XCTAssertFalse(sut.isConnected, "NetworkMonitor should default to `.satisfied` on launch (i.e. `isConnected == true`).")
     }
 }
 

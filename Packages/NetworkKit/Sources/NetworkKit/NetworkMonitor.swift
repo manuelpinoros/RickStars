@@ -58,11 +58,12 @@ final class PathCreation: PathCreationProtocol {
 }
 
 //MARK: Utilitie class
-final class NetworkPathMonitor: ObservableObject {
+public final class NetworkPathMonitor: ObservableObject {
     @Published var isConnected = true
     
     private var pathUpdateCancellable: AnyCancellable?
     let paths: PathCreationProtocol
+    
     init(
         paths: PathCreationProtocol = PathCreation()
     ) {

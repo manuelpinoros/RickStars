@@ -14,7 +14,7 @@ import UIKit
 @Observable
 final class CharactersListViewModel {
     
-    private var connectivity = NetworkMonitor.shared
+    private var connectivity = NetworkPathMonitor()
     private var currentName: String? = nil
     private(set) var items: [RickCharacter] = []
     private(set) var isLoading = false
