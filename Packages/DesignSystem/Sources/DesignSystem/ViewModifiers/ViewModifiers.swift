@@ -36,11 +36,11 @@ struct InnerRoundedBorderModifier: ViewModifier {
 }
 
 extension View {
-    func roundedBorder(color: Color = .black, lineWidth: CGFloat = 1, cornerRadius: CGFloat = standardRadius) -> some View {
+    public func roundedBorder(color: Color = .black, lineWidth: CGFloat = 1, cornerRadius: CGFloat = Radius.small) -> some View {
         self.modifier(RoundedBorderModifier(color: color, lineWidth: lineWidth, cornerRadius: cornerRadius))
     }
     
-    func innerRoundedBorder(color: Color = .black, lineWidth: CGFloat = 1, cornerRadius: CGFloat = standardRadius) -> some View {
+    public func innerRoundedBorder(color: Color = .black, lineWidth: CGFloat = 1, cornerRadius: CGFloat = Radius.small) -> some View {
         self.modifier(InnerRoundedBorderModifier(color: color, lineWidth: lineWidth, cornerRadius: cornerRadius))
     }
 }

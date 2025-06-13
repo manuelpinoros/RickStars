@@ -1,7 +1,5 @@
 import SwiftUI
 
-public final class DesignSystemBundle {}
-
 public extension Color {
     static let accentPrimary = Color("AccentPrimary", bundle: .module)
     static let backgroundPrimary = Color("BackgroundPrimary", bundle: .module)

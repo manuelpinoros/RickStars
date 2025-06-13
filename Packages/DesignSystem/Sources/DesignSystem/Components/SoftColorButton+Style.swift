@@ -6,7 +6,7 @@
 //
 import SwiftUI
 
-enum ButtonShape{
+public enum ButtonShape{
     case circle
     case rounded
 }
@@ -34,7 +34,7 @@ struct SoftColorButtonStyle: ButtonStyle {
     }
 }
 
-struct CustomButton: View {
+public struct SoftColorButton: View {
     var size: CGFloat = 48
     var backgroundColor: Color = .white
     var selectedColor: Color = .red
@@ -46,8 +46,30 @@ struct CustomButton: View {
     var borderColor: Color? = nil
     var borderWidth: CGFloat = 0
     
-    var body: some View {
+    public var body: some View {
         buttonWithProperShape()
+    }
+    
+    public init(size: CGFloat = 48,
+                backgroundColor: Color = .white,
+                selectedColor: Color = .red,
+                iconColor: Color = .red,
+                icon: String? = nil,
+                title: String? = nil,
+                action: @escaping () -> Void = { print("action") },
+                buttonShape: ButtonShape = .circle,
+                borderColor: Color? = nil,
+                borderWidth: CGFloat = 0) {
+        self.size = size
+        self.backgroundColor = backgroundColor
+        self.selectedColor = selectedColor
+        self.iconColor = iconColor
+        self.icon = icon
+        self.title = title
+        self.action = action
+        self.buttonShape = buttonShape
+        self.borderColor = borderColor
+        self.borderWidth = borderWidth
     }
     
     @ViewBuilder
@@ -96,8 +118,8 @@ struct CustomButton: View {
             }
         }
         .buttonStyle(SoftColorButtonStyle(backgroundColor: backgroundColor,
-                                       selectedColor: selectedColor,
-                                       buttonShape: buttonShape))
+                                          selectedColor: selectedColor,
+                                          buttonShape: buttonShape))
         .frame(width: size, height: size)
     }
 }
