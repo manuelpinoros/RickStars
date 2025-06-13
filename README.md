@@ -1,95 +1,100 @@
-# RickStars
+# RickStar: A Rick and Morty Explorer iOS App
 
-RickStars is a demo iOS app that leverages the free Rick & Morty API to display detailed information about characters from the series.
+## 🚀 Description
 
-## Features
+RickStar is an iOS application built with SwiftUI that allows users to explore characters from the popular TV show "Rick and Morty." Users can browse through a list of characters, view detailed information about each character, and enjoy a seamless experience with features like image caching, pagination, and real-time search.
 
-* **Infinite-scroll list** of characters with on‑demand prefetching and in‑memory image caching.
-* **Search** by character name directly against the API.
-* **Status indicator**: circular colored border (green = alive, red = dead, yellow = unknown) around each character’s avatar.
-* **Character detail screen** showing:
+## ✨ Features
 
-  * Full name, status, species, type
-  * Origin and last known location
-  * Total number of episodes and a scrollable list of episode codes and titles
-* **Modular architecture** via Swift Package Manager:
+*   **Character List**:
+    *   Displays characters with their image, name, and status.
+    *   **Infinite Scrolling & Pagination**: Automatically loads more characters as the user scrolls (page-by-page loading).
+    *   **Search**: Real-time search functionality for characters by name, with built-in throttling (400ms) to optimize performance.
+    *   **Prefetching**: Proactively loads data for upcoming characters (when within 5 items of the list's end) to provide a smoother browsing experience.
+*   **Character Details**:
+    *   Shows comprehensive information about a selected character, including species, type, origin, location, and a list of episodes they appeared in.
+*   **Image Caching**:
+    *   Utilizes an in-memory cache (`CacheKit`'s `MemoryImageCache`) for efficiently loading and storing character images, reducing network requests and improving performance.
+*   **Responsive UI**:
+    *   Adapts to network connectivity changes (monitored by `NetworkKit`), providing feedback to the user and attempting to refresh data on reconnection.
+    *   Clean and intuitive user interface built with SwiftUI and custom Design System components.
+*   **Localization**:
+    *   Supports string localization using `NSLocalizedString` (extensions in `String+.swift`) for broader accessibility (though specific translations might need to be added).
 
-  * **NetworkKit**: generic async/await HTTP client with robust error handling
-  * **CacheKit**: simple in‑memory image cache
-  * **RickMortyDomain**: core models and repository protocols
-  * **RickMortyData**: concrete repository implementations using NetworkKit
-* **MVVM** combined with a **Router/Coordinator** pattern for clean navigation
-* **Localization** support (English, French, Spanish)
+## 🛠️ Technologies & Architecture
 
+*   **UI Framework**: SwiftUI
+*   **Architecture**: Model-View-ViewModel (MVVM)
+    *   ViewModels (e.g., `CharactersListViewModel`, `CharacterDetailViewModel`) are `@Observable` and manage state and business logic for their respective Views.
+    *   Domain logic and data transformation are handled within ViewModels and Data layer mappers. (Note: Dedicated UseCase classes in `RickMortyDomain` are not explicitly implemented; ViewModels currently fulfill this role by interacting directly with repositories).
+*   **Modularity**: Swift Package Manager (SPM) is used to organize the project into distinct, reusable modules.
+*   **Reactive Programming**: Combine framework is used for handling asynchronous operations, particularly for network connectivity monitoring in `NetworkKit` and in ViewModels.
+*   **Networking**:
+    *   `NetworkKit` provides a robust, generic client (`URLSessionClient` conforming to `NetworkClient`) for making API calls using `async/await`.
+    *   It includes network monitoring (`NetworkPathMonitor`) to adapt to connectivity changes.
+*   **Styling & UI**:
+    *   `DesignSystem` package provides a collection of reusable UI components (e.g., `SearchBarView`) and styling constants.
+    *   Custom SwiftUI `ViewModifier` extensions (`View+.swift`) are used for consistent styling across the app (e.g., status borders, rounded borders, navigation bar styles).
+*   **Constants & Utilities**:
+    *   Centralized constants for UI elements (`Constants.swift` - e.g., `standardPadding`, `CharacterStatus` enum with colors).
+    *   Helpful extensions for `Image` (SF Symbol fallback), `String` (localization), and `View`.
 
-## Project Structure
+## 📦 Modules
 
-```
-.
-├── Packages
-│   ├── CacheKit
-│   │   └── Sources
-│   ├── NetworkKit
-│   │   ├── Sources
-│   │   └── Tests
-│   ├── RickMortyData
-│   │   └── Sources
-│   └── RickMortyDomain
-│       └── Sources
-├── RickStar
-│   ├── Assets.xcassets
-│   │   ├── AccentColor.colorset
-│   │   ├── AppIcon.appiconset
-│   │   └── RickStars.imageset
-│   ├── Declarations
-│   │   └── Extensions
-│   ├── Navigation
-│   ├── Preview Content
-│   │   └── Preview Assets.xcassets
-│   ├── Resources
-│   ├── ViewModels
-│   └── Views
-│       └── Components
-├── RickStarTests
-└── RickStarUITests
-```
-## Running NetworkKit Tests
+The project is structured into several Swift Packages to promote separation of concerns and maintainability:
 
-To run the NetworkKit tests, follow these steps:
+*   **`RickStar` (Main Application Target)**
+    *   **Description**: The main iOS application target. It contains the app's entry point (`RickStarApp.swift`), navigation logic (`Router.swift`), ViewModels (e.g., `CharactersListViewModel`, `CharacterDetailViewModel`), and SwiftUI Views (e.g., `CharactersListView`, `CharacterDetailView`).
+    *   **Responsibilities**: UI presentation, user interaction, state management, and coordination between different modules.
 
-1. Open a terminal and navigate to the NetworkKit package directory:
-   ```bash
-   cd Packages/NetworkKit
-   ```
+*   **`CacheKit`**
+    *   **Description**: Provides image caching capabilities.
+    *   **Implementation**: Uses an in-memory cache (`MemoryImageCache` built on `NSCache`) to store and retrieve images efficiently based on URLs.
+    *   **Key Files**: `ImageCache.swift`
 
-2. Run the tests using Swift Package Manager:
-   ```bash
-   swift test
-   ```
+*   **`DesignSystem`**
+    *   **Description**: A dedicated module for UI components, styling guidelines, and resources (e.g., `Media.xcassets`).
+    *   **Responsibilities**: Ensures a consistent look and feel across the application by providing reusable UI elements (e.g., `SearchBarView`, `PlaceholderTextField`) and defining common styles.
+    *   **Key Files**: `Components/SearchBarView.swift` (example)
 
-   This will execute all tests in the NetworkKit package and report the results.
+*   **`NetworkKit`**
+    *   **Description**: Manages all network communication for the application.
+    *   **Responsibilities**: Provides a generic `NetworkClient` (`URLSessionClient`) for making API requests, handles `Endpoint` definitions, defines custom `NetworkError` types for error management, and includes a `NetworkPathMonitor` (using `NWPathMonitor` and Combine) to observe and react to network connectivity changes.
+    *   **Key Files**: `NetworkClient.swift`, `NetworkMonitor.swift`, `Endpoint.swift`, `NetworkClient+Error.swift`
 
-3. If you want to run a specific test, you can use the `--filter` option. For example:
-   ```bash
-   swift test --filter NetworkKitTests.testCharacterEndpointURLRequest
-   ```
+*   **`RickMortyData`**
+    *   **Description**: The data layer of the application, responsible for fetching and managing data related to Rick and Morty characters, episodes, etc., from the API.
+    *   **Dependencies**: `NetworkKit` (for API calls), `RickMortyDomain` (for domain models).
+    *   **Responsibilities**: Implements repository patterns (e.g., `DefaultCharacterRepository`, `DefaultEpisodeRepository`, `DefaultCharactersImageRepository`) to abstract data sources. Contains embedded mapping logic to transform Data Transfer Objects (DTOs) from the API into domain models defined in `RickMortyDomain`. Also handles mapping network errors to domain errors.
+    *   **Key Files**: `Repositories/DefaultCharacterRepository.swift`, `Repositories/DefaultEpisodeRepository.swift`, `RickMortyRoute.swift` (defines API endpoints)
 
-4. For more detailed output, you can add the `--verbose` flag:
-   ```bash
-   swift test --verbose
-   ```
+*   **`RickMortyDomain`**
+    *   **Description**: Defines the core business logic (implicitly, as ViewModels currently handle this), repository protocols, and domain models for the Rick and Morty features.
+    *   **Responsibilities**: Contains the definitions for primary data structures like `RickCharacter`, `Episode`, `CharacterPage`, `PageInfo`, `ROrigin`, `RLocation`. This layer ensures that the business rules are independent of the UI and data fetching mechanisms. Defines repository contracts (e.g., `CharacterRepository`, `EpisodeRepository`).
+    *   **Key Files**: `RickCharacter.swift` (contains `RickCharacter`, `CharacterPage`, etc.), `Episode.swift`, `CharacterRepository.swift`, `DomainError.swift`
 
-5. If you encounter any issues, ensure that your Swift version is compatible (Swift 5.9 or later) and that all dependencies are correctly set up in your `Package.swift` file.
+## ⚙️ Building and Running
 
+1.  Clone the repository.
+2.  Open `RickStar.xcodeproj` in Xcode.
+3.  Select a simulator or a connected device.
+4.  Build and run the project (Cmd+R).
 
-## Running UI Tests from Xcode
+No special environment variables or setup steps are required beyond a standard Xcode installation.
 
-1. Open the **RickStar.xcodeproj** in Xcode.  
-2. Make sure the **RickStarUITests** scheme is available:
-   - Go to **Product ▶︎ Scheme ▶︎ Manage Schemes…**  
-   - Check **Shared** next to **RickStarUITests** (if it isn’t already).  
-3. To run *all* UI tests at once, simply press **⌘U** (Product ▶︎ Test).  
-4. To run a single test or file:
-   - In the Project navigator, open `RickStarUITests.swift`.  
-   - Click the Play ▶️ button in the gutter next to the test **class** or **method** you want to run.  
-5. Inspect results in the Report navigator (⌘9) once the tests complete. 
+## ✅ Testing
+
+The project includes a suite of tests to ensure functionality and stability:
+
+*   **Unit Tests**:
+    *   **`CacheKitTests`**: (`ImageCacheTests.swift`) Verifies the image caching logic.
+    *   **`NetworkKitTests`**: (`NetworkKitTests.swift`, `NetworkMonitorTests.swift`) Tests networking functionalities, including the network monitor.
+    *   **`RickMortyDataTests`**: (`DefaultCharacterRepositoryTests.swift`, etc.) Comprehensive tests covering data repositories (characters, images, episodes), API route construction, and error mapping. This module has good test coverage.
+    *   **`RickStarTests`**: (`RickStarTests.swift`) Unit tests for the main application logic, potentially including ViewModels.
+*   **UI Tests**:
+    *   **`RickStarUITests`**: (`RickStarUITests.swift`) Conducts UI tests to verify user flows and interactions within the app.
+    *   **`RickStarUITestsLaunchTests`**: (`RickStarUITestsLaunchTests.swift`) Ensures the app launches correctly.
+
+### Areas for Improvement in Testing:
+
+*   **`RickMortyDomain`**: This package currently lacks unit tests. Adding tests here for any future validation logic within models or for repository protocol interactions would improve the robustness of the core business logic.
