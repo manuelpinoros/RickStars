@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import RickMortyDomain
+import DesignSystem
 
 struct EpisodesList: View {
     
@@ -21,7 +22,7 @@ struct EpisodesList: View {
                         .font(.subheadline)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.vertical, standardPadding)
+                .padding(.vertical, Spacing.medium)
 
                 if ep.id != episodes.last?.id {
                     Rectangle()

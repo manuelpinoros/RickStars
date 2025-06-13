@@ -12,7 +12,6 @@ public protocol ImageCache: AnyObject {
 
 public final class MemoryImageCache: ImageCache {
     private let cache = NSCache<NSURL, UIImage>()
-
     public init() {}
 
     public func removeAll() {

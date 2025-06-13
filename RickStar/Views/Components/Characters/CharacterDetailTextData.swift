@@ -5,6 +5,7 @@
 //  Created by Manuel Pino Ros on 27/5/25.
 //
 import SwiftUI
+import DesignSystem
 
 struct CharacterDetailTextData: View {
     
@@ -50,9 +51,11 @@ struct CharacterDetailTextData: View {
         }
         .padding()
         .background(
-            RoundedRectangle(cornerRadius: 12)
+            RoundedRectangle(cornerRadius: Radius.medium)
                 .fill(Color.mint.opacity(0.3))
-                .innerRoundedBorder(color: .cyan, lineWidth: 4, cornerRadius: 12)
+                .innerRoundedBorder(color: .cyan,
+                                    lineWidth: BorderWidth.small,
+                                    cornerRadius: Radius.medium)
         )
     }
 }

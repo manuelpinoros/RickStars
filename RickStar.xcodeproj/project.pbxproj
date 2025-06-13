@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		49BE6ECC2DFC4C120097669C /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = 49BE6ECB2DFC4C120097669C /* DesignSystem */; };
 		49D4AC712DE5AF1B00C32233 /* NetworkKit in Frameworks */ = {isa = PBXBuildFile; productRef = 49D4AC702DE5AF1B00C32233 /* NetworkKit */; };
 		49D4AC742DE5B08900C32233 /* NetworkKit in Frameworks */ = {isa = PBXBuildFile; productRef = 49D4AC732DE5B08900C32233 /* NetworkKit */; };
 		49D4AC772DE5B2EF00C32233 /* CacheKit in Frameworks */ = {isa = PBXBuildFile; productRef = 49D4AC762DE5B2EF00C32233 /* CacheKit */; };
@@ -59,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49BE6ECC2DFC4C120097669C /* DesignSystem in Frameworks */,
 				49D4AC742DE5B08900C32233 /* NetworkKit in Frameworks */,
 				49D4AC712DE5AF1B00C32233 /* NetworkKit in Frameworks */,
 				49D4AC772DE5B2EF00C32233 /* CacheKit in Frameworks */,
@@ -127,6 +129,7 @@
 				49D4AC732DE5B08900C32233 /* NetworkKit */,
 				49D4AC762DE5B2EF00C32233 /* CacheKit */,
 				49D4AC7C2DE5B39B00C32233 /* RickMortyData */,
+				49BE6ECB2DFC4C120097669C /* DesignSystem */,
 			);
 			productName = RickStar;
 			productReference = 49D4AC412DE5AC4800C32233 /* RickStar.app */;
@@ -216,6 +219,7 @@
 				49D4AC722DE5B08900C32233 /* XCLocalSwiftPackageReference "Packages/NetworkKit" */,
 				49D4AC752DE5B2EF00C32233 /* XCLocalSwiftPackageReference "Packages/CacheKit" */,
 				49D4AC7B2DE5B39B00C32233 /* XCLocalSwiftPackageReference "Packages/RickMortyData" */,
+				49BE6ECA2DFC4C120097669C /* XCLocalSwiftPackageReference "Packages/DesignSystem" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 49D4AC422DE5AC4800C32233 /* Products */;
@@ -619,6 +623,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
+		49BE6ECA2DFC4C120097669C /* XCLocalSwiftPackageReference "Packages/DesignSystem" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/DesignSystem;
+		};
 		49D4AC722DE5B08900C32233 /* XCLocalSwiftPackageReference "Packages/NetworkKit" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/NetworkKit;
@@ -634,6 +642,10 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		49BE6ECB2DFC4C120097669C /* DesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignSystem;
+		};
 		49D4AC702DE5AF1B00C32233 /* NetworkKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = NetworkKit;
