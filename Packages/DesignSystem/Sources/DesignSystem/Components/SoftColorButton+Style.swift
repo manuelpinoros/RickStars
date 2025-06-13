@@ -1,13 +1,17 @@
 //
-//  CustomButton.swift
-//  CurlyJoy
+//  SoftColorButtonStyle.swift
+//  DesignSystem
 //
-//  Created by Manuel Pino Ros on 9/4/25.
+//  Created by Manuel Pino Ros on 13/6/25.
 //
 import SwiftUI
 
-// Create a custom button style to handle the pressed state
-struct CustomButtonStyle: ButtonStyle {
+public enum ButtonShape{
+    case circle
+    case rounded
+}
+
+struct SoftColorButtonStyle: ButtonStyle {
     var backgroundColor: Color
     var selectedColor: Color
     var buttonShape: ButtonShape
@@ -19,7 +23,7 @@ struct CustomButtonStyle: ButtonStyle {
                 Circle()
                     .fill(configuration.isPressed ? selectedColor : backgroundColor)
             } else {
-                RoundedRectangle(cornerRadius: standardRadius)
+                RoundedRectangle(cornerRadius: Radius.small)
                     .fill(configuration.isPressed ? selectedColor : backgroundColor)
             }
             
@@ -30,7 +34,7 @@ struct CustomButtonStyle: ButtonStyle {
     }
 }
 
-struct CustomButton: View {
+public struct SoftColorButton: View {
     var size: CGFloat = 48
     var backgroundColor: Color = .white
     var selectedColor: Color = .red
@@ -42,8 +46,30 @@ struct CustomButton: View {
     var borderColor: Color? = nil
     var borderWidth: CGFloat = 0
     
-    var body: some View {
+    public var body: some View {
         buttonWithProperShape()
+    }
+    
+    public init(size: CGFloat = 48,
+                backgroundColor: Color = .white,
+                selectedColor: Color = .red,
+                iconColor: Color = .red,
+                icon: String? = nil,
+                title: String? = nil,
+                action: @escaping () -> Void = { print("action") },
+                buttonShape: ButtonShape = .circle,
+                borderColor: Color? = nil,
+                borderWidth: CGFloat = 0) {
+        self.size = size
+        self.backgroundColor = backgroundColor
+        self.selectedColor = selectedColor
+        self.iconColor = iconColor
+        self.icon = icon
+        self.title = title
+        self.action = action
+        self.buttonShape = buttonShape
+        self.borderColor = borderColor
+        self.borderWidth = borderWidth
     }
     
     @ViewBuilder
@@ -53,7 +79,7 @@ struct CustomButton: View {
                 .contentShape(Circle())
         } else {
             buttonContent()
-                .contentShape(RoundedRectangle(cornerRadius: 8))
+                .contentShape(RoundedRectangle(cornerRadius: Radius.small))
         }
     }
     
@@ -72,10 +98,10 @@ struct CustomButton: View {
                         )
                 }
                 else {
-                    RoundedRectangle(cornerRadius: standardRadius)
+                    RoundedRectangle(cornerRadius: Radius.small)
                         .fill(backgroundColor)
                         .overlay(
-                            RoundedRectangle(cornerRadius: standardRadius)
+                            RoundedRectangle(cornerRadius: Radius.small)
                                 .strokeBorder(borderColor ?? .clear, lineWidth: borderWidth)
                         )
                 }
@@ -91,9 +117,21 @@ struct CustomButton: View {
                 }
             }
         }
-        .buttonStyle(CustomButtonStyle(backgroundColor: backgroundColor,
-                                       selectedColor: selectedColor,
-                                       buttonShape: buttonShape))
+        .buttonStyle(SoftColorButtonStyle(backgroundColor: backgroundColor,
+                                          selectedColor: selectedColor,
+                                          buttonShape: buttonShape))
         .frame(width: size, height: size)
+    }
+}
+
+extension Image {
+    init(systemName: String, fallbackAssetName: String) {
+        if let _ = UIImage(systemName: systemName) {
+            self = Image(systemName: systemName)
+                .renderingMode(.template)
+        } else {
+            self = Image(fallbackAssetName)
+                .renderingMode(.template)
+        }
     }
 }

@@ -10,13 +10,13 @@ import NetworkKit
 import RickMortyDomain
 
 public protocol ErrorMapper {
-    func map(_ error: NetworkError) -> DomainError
+    func mapTo(_ error: NetworkError) -> DomainError
 }
 
 public struct NetworkErrorMapper: ErrorMapper {
     public init() {}
 
-    public func map(_ error: NetworkError) -> DomainError {
+    public func mapTo(_ error: NetworkError) -> DomainError {
         switch error {
             
         case .badStatusCode(let code):

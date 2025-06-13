@@ -9,12 +9,13 @@ import Combine
 import RickMortyDomain
 import NetworkKit
 import UIKit
+import SwiftUICore
 
 @MainActor
 @Observable
 final class CharactersListViewModel {
     
-    private var connectivity = NetworkMonitor.shared
+    private var connectivity: NetworkPathMonitor
     private var currentName: String? = nil
     private(set) var items: [RickCharacter] = []
     private(set) var isLoading = false
@@ -37,6 +38,7 @@ final class CharactersListViewModel {
     init(repo: CharacterRepository,
          imageRepo: CharactersImageRepository,
          router: Router) {
+        connectivity = NetworkPathMonitor()
         self.repo = repo
         self.imageRepo = imageRepo
         self.router = router

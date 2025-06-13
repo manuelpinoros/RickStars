@@ -4,7 +4,6 @@
 //
 //  Created by Manuel Pino Ros on 27/5/25.
 //
-
 import Foundation
 
 public protocol NetworkClient {

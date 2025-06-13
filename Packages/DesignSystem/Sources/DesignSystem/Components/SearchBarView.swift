@@ -1,33 +1,36 @@
 //
 //  SearchBarView.swift
-//  EscapeSounds
+//  DesignSystem
 //
-//  Created by Manuel Pino Ros on 23/1/25.
+//  Created by Manuel Pino Ros on 13/6/25.
 //
-
 import SwiftUI
 
-struct SearchBarView: View {
+public struct SearchBarView: View {
     
     @Binding var searchText: String
     
-    var body: some View {
+    public init(searchText: Binding<String>) {
+        self._searchText = searchText 
+    }
+    
+    public var body: some View {
         VStack {
-            HStack(spacing: 8) {
+            HStack(spacing: Spacing.small) {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.white)
                 
                 PlaceholderTextField(text: $searchText, placeholder: "Search", placeholderColor: .white)
                     .foregroundStyle(.white)
             }
-            .padding(.vertical, 7)
-            .padding(.horizontal, 14)
+            .padding(.vertical, Spacing.small)
+            .padding(.horizontal, Spacing.medium)
             .background(
                 Capsule()
                     .fill(.mint.opacity(0.4))
                     .overlay(
                         Capsule()
-                            .stroke(.cyan, lineWidth: 4)
+                            .stroke(.cyan, lineWidth: BorderWidth.small)
                     )
             )
             .padding(.horizontal)
@@ -43,9 +46,4 @@ struct SearchBarView: View {
         let minY = proxy.frame(in: .scrollView(axis: .vertical)).minY
         return minY > 0 ? 0 : -minY
     }
-}
-
-#Preview {
-    @Previewable @State var text: String = ""
-    SearchBarView(searchText: $text)
 }

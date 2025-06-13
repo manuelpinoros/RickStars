@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1620"
+   LastUpgradeVersion = "1640"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,9 +15,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "NetworkKit"
-               BuildableName = "NetworkKit"
-               BlueprintName = "NetworkKit"
+               BlueprintIdentifier = "CacheKit"
+               BuildableName = "CacheKit"
+               BlueprintName = "CacheKit"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -34,9 +34,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "NetworkKitTests"
-               BuildableName = "NetworkKitTests"
-               BlueprintName = "NetworkKitTests"
+               BlueprintIdentifier = "CacheKitTests"
+               BuildableName = "CacheKitTests"
+               BlueprintName = "CacheKitTests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>
@@ -62,9 +62,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "NetworkKit"
-            BuildableName = "NetworkKit"
-            BlueprintName = "NetworkKit"
+            BlueprintIdentifier = "CacheKit"
+            BuildableName = "CacheKit"
+            BlueprintName = "CacheKit"
             ReferencedContainer = "container:">
          </BuildableReference>
       </MacroExpansion>
