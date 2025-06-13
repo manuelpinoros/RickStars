@@ -5,6 +5,7 @@
 //  Created by Manuel Pino Ros on 27/5/25.
 //
 import SwiftUI
+import DesignSystem
 
 struct CharactersListView: View {
     
@@ -49,7 +50,7 @@ struct CharactersListView: View {
         .task { await vm.onViewAppear() }
             }
             .overlay(alignment: .bottomTrailing) {
-                CustomButton(
+                SoftColorButton(
                     size: 65,
                     backgroundColor: .indigo.opacity(0.5),
                     selectedColor: .indigo,

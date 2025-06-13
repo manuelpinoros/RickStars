@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import RickMortyDomain
+import DesignSystem
 
 struct CharacterDetailView: View {
     
@@ -19,7 +20,7 @@ struct CharacterDetailView: View {
     
     var body: some View {
         
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: Spacing.large) {
             AsyncImage(url: vm.rickCharacter.image) { phase in
                 switch phase {
                 case .success(let img): img.resizable()
@@ -29,7 +30,7 @@ struct CharacterDetailView: View {
             .frame(width: 160, height: 160)
             .clipShape(Circle())
             .statusBorderCircle(CharacterStatus(rawValue: vm.rickCharacter.status.lowercased()) ?? .unknown,
-                                lineWidth: 4)
+                                lineWidth: BorderWidth.small)
             .frame(maxWidth: .infinity)
             
             ScrollView(.vertical, showsIndicators: false) {
@@ -41,11 +42,11 @@ struct CharacterDetailView: View {
                                         lastSeen: vm.rickCharacter.location.name,
                                         appearIn: vm.episodes.count)
                 
-                VStack(alignment: .leading, spacing: 16) {
+                VStack(alignment: .leading, spacing: Spacing.large) {
                     if !vm.episodes.isEmpty {
                         Text("Episodes:")
                             .font(.headline)
-                            .padding(.top, standardPadding)
+                            .padding(.top, Spacing.medium)
                         
                         EpisodesList(episodes: vm.episodes)
                     } else {
@@ -57,9 +58,11 @@ struct CharacterDetailView: View {
                 }
                 .padding()
                 .background(
-                    RoundedRectangle(cornerRadius: 12)
+                    RoundedRectangle(cornerRadius: Radius.medium)
                         .fill(Color.mint.opacity(0.3))
-                        .innerRoundedBorder(color: .cyan, lineWidth: 4, cornerRadius: 12)
+                        .innerRoundedBorder(color: .cyan,
+                                            lineWidth: BorderWidth.small,
+                                            cornerRadius: Radius.medium)
                 )
             }
         }
