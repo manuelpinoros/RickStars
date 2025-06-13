@@ -59,7 +59,7 @@ final class PathCreation: PathCreationProtocol {
 
 //MARK: Utilitie class
 public final class NetworkPathMonitor: ObservableObject {
-    @Published var isConnected = true
+    @Published public var isConnected = true
     
     private var pathUpdateCancellable: AnyCancellable?
     let paths: PathCreationProtocol
@@ -68,6 +68,15 @@ public final class NetworkPathMonitor: ObservableObject {
         paths: PathCreationProtocol = PathCreation()
     ) {
         self.paths = paths
+        paths.start()
+        self.pathUpdateCancellable = paths.networkPathPublisher?
+            .sink(receiveValue: { [weak self] isConnected in
+                self?.isConnected = isConnected == NetworkPath(status: .satisfied)
+            })
+    }
+    
+    public init(){
+        self.paths = PathCreation()
         paths.start()
         self.pathUpdateCancellable = paths.networkPathPublisher?
             .sink(receiveValue: { [weak self] isConnected in

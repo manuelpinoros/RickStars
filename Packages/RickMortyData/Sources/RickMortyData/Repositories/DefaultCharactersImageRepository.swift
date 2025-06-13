@@ -8,23 +8,34 @@ import UIKit
 import RickMortyDomain
 
 public final class DefaultCharactersImageRepository: CharactersImageRepository {
-    private let local: CharactersImageLocalDatasource
-    private let remote: CharactersImageRemoteDatasource
-
-    public init(local: CharactersImageLocalDatasource = .init(),
-                remote: CharactersImageRemoteDatasource = .init()) {
+    private let local: CharacterImageSource
+    private let remote: CharacterImageSource
+    
+    public init(local: CharacterImageSource = CharactersImageLocalDatasource(),
+                remote: CharacterImageSource = CharactersImageRemoteDatasource()) {
         self.local = local
         self.remote = remote
     }
-
+    
     public func loadImage(from url: URL) async throws -> UIImage {
-        if let cached = local.imageFromCache(url: url) {
-            return cached
+        do {
+            return try await local.imageFromSource(url: url)
+        } catch {                
+            if (error as? DomainError) != DomainError.localResourceNotFound {
+                throw error
+            }
         }
-    
-        let downloaded = try await remote.downloadImage(from: url)
-    
-        local.saveImageToCache(downloaded, url: url)
-        return downloaded
+
+        do {
+            let downloaded = try await remote.imageFromSource(url: url)
+            local.imageToSource(downloaded, url: url)
+            return downloaded
+        } catch {
+            throw error
+        }
+    }
+
+    private func isNotFound(_ error: Error) -> Bool {
+        (error as NSError).code == NSFileReadNoSuchFileError
     }
 }

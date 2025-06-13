@@ -14,3 +14,9 @@ public protocol CharacterRepository {
 public protocol CharactersImageRepository {
     func loadImage(from url: URL) async throws -> UIImage
 }
+
+public protocol CharacterImageSource{
+    
+    func imageFromSource(url: URL) async throws -> UIImage
+    func imageToSource(_ image: UIImage, url: URL)
+}
