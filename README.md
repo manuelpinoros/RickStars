@@ -36,7 +36,7 @@ RickStar is an iOS application built with SwiftUI that allows users to explore c
     *   `DesignSystem` package provides a collection of reusable UI components (e.g., `SearchBarView`) and styling constants.
     *   Custom SwiftUI `ViewModifier` extensions (`View+.swift`) are used for consistent styling across the app (e.g., status borders, rounded borders, navigation bar styles).
 *   **Constants & Utilities**:
-    *   Centralized constants for UI elements (`Constants.swift` - e.g., `standardPadding`, `CharacterStatus` enum with colors).
+    *   Centralized constants for UI elements (`Constants.swift` - e.g., `CharacterStatus` enum with colors).
     *   Helpful extensions for `Image` (SF Symbol fallback), `String` (localization), and `View`.
 
 ## 📦 Modules
@@ -95,6 +95,3 @@ The project includes a suite of tests to ensure functionality and stability:
     *   **`RickStarUITests`**: (`RickStarUITests.swift`) Conducts UI tests to verify user flows and interactions within the app.
     *   **`RickStarUITestsLaunchTests`**: (`RickStarUITestsLaunchTests.swift`) Ensures the app launches correctly.
 
-### Areas for Improvement in Testing:
-
-*   **`RickMortyDomain`**: This package currently lacks unit tests. Adding tests here for any future validation logic within models or for repository protocol interactions would improve the robustness of the core business logic.
