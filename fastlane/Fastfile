@@ -20,7 +20,7 @@ platform :ios do
   lane :testsAll do
     run_tests(
       scheme: "RickStar",
-      devices: ["iPhone 16"],
+      devices: ["iPhone 15"],
       clean: true,
     )
   end
