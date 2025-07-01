@@ -25,5 +25,7 @@ jobs:
 
       - name: Run fastlane tests
         run: fastlane testsAll
+        env: 
+          IDEFileSystemSynchronizedGroupsEnabled: "YES"
 
         
