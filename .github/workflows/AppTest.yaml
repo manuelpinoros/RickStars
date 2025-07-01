@@ -24,6 +24,6 @@ jobs:
         run: gem install fastlane
 
       - name: Run fastlane tests
-        run: cd RickStar/; fastlane testsAll
+        run: fastlane testsAll
 
         
