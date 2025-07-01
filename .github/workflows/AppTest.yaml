@@ -5,7 +5,7 @@ on:
       - main
 jobs:
   test:
-    runs-on: macos-latest
+    runs-on: macos-15
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
@@ -13,7 +13,7 @@ jobs:
       - name: Select Xcode version
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '15.2'
+          xcode-version: '15.3'
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
@@ -25,7 +25,5 @@ jobs:
 
       - name: Run fastlane tests
         run: fastlane testsAll
-        env: 
-          IDEFileSystemSynchronizedGroupsEnabled: "YES"
 
         
