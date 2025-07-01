@@ -22,19 +22,11 @@
 			remoteGlobalIDString = 49D4AC402DE5AC4800C32233;
 			remoteInfo = RickStar;
 		};
-		49D4AC5D2DE5AC4900C32233 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 49D4AC392DE5AC4800C32233 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 49D4AC402DE5AC4800C32233;
-			remoteInfo = RickStar;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		49D4AC412DE5AC4800C32233 /* RickStar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RickStar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49D4AC522DE5AC4900C32233 /* RickStarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RickStarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		49D4AC5C2DE5AC4900C32233 /* RickStarUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RickStarUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -46,11 +38,6 @@
 		49D4AC552DE5AC4900C32233 /* RickStarTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = RickStarTests;
-			sourceTree = "<group>";
-		};
-		49D4AC5F2DE5AC4900C32233 /* RickStarUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = RickStarUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -75,13 +62,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		49D4AC592DE5AC4900C32233 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -90,7 +70,6 @@
 			children = (
 				49D4AC432DE5AC4800C32233 /* RickStar */,
 				49D4AC552DE5AC4900C32233 /* RickStarTests */,
-				49D4AC5F2DE5AC4900C32233 /* RickStarUITests */,
 				49D4AC422DE5AC4800C32233 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -100,7 +79,6 @@
 			children = (
 				49D4AC412DE5AC4800C32233 /* RickStar.app */,
 				49D4AC522DE5AC4900C32233 /* RickStarTests.xctest */,
-				49D4AC5C2DE5AC4900C32233 /* RickStarUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -158,29 +136,6 @@
 			productReference = 49D4AC522DE5AC4900C32233 /* RickStarTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		49D4AC5B2DE5AC4900C32233 /* RickStarUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 49D4AC6C2DE5AC4900C32233 /* Build configuration list for PBXNativeTarget "RickStarUITests" */;
-			buildPhases = (
-				49D4AC582DE5AC4900C32233 /* Sources */,
-				49D4AC592DE5AC4900C32233 /* Frameworks */,
-				49D4AC5A2DE5AC4900C32233 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				49D4AC5E2DE5AC4900C32233 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				49D4AC5F2DE5AC4900C32233 /* RickStarUITests */,
-			);
-			name = RickStarUITests;
-			packageProductDependencies = (
-			);
-			productName = RickStarUITests;
-			productReference = 49D4AC5C2DE5AC4900C32233 /* RickStarUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -195,10 +150,6 @@
 						CreatedOnToolsVersion = 16.2;
 					};
 					49D4AC512DE5AC4900C32233 = {
-						CreatedOnToolsVersion = 16.2;
-						TestTargetID = 49D4AC402DE5AC4800C32233;
-					};
-					49D4AC5B2DE5AC4900C32233 = {
 						CreatedOnToolsVersion = 16.2;
 						TestTargetID = 49D4AC402DE5AC4800C32233;
 					};
@@ -228,7 +179,6 @@
 			targets = (
 				49D4AC402DE5AC4800C32233 /* RickStar */,
 				49D4AC512DE5AC4900C32233 /* RickStarTests */,
-				49D4AC5B2DE5AC4900C32233 /* RickStarUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -242,13 +192,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		49D4AC502DE5AC4900C32233 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		49D4AC5A2DE5AC4900C32233 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -272,13 +215,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		49D4AC582DE5AC4900C32233 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -286,11 +222,6 @@
 			isa = PBXTargetDependency;
 			target = 49D4AC402DE5AC4800C32233 /* RickStar */;
 			targetProxy = 49D4AC532DE5AC4900C32233 /* PBXContainerItemProxy */;
-		};
-		49D4AC5E2DE5AC4900C32233 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 49D4AC402DE5AC4800C32233 /* RickStar */;
-			targetProxy = 49D4AC5D2DE5AC4900C32233 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -537,50 +468,6 @@
 			};
 			name = Release;
 		};
-		49D4AC6D2DE5AC4900C32233 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
-				MACOSX_DEPLOYMENT_TARGET = 15.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mpr.RickStarUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = RickStar;
-				XROS_DEPLOYMENT_TARGET = 2.2;
-			};
-			name = Debug;
-		};
-		49D4AC6E2DE5AC4900C32233 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
-				MACOSX_DEPLOYMENT_TARGET = 15.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.mpr.RickStarUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = RickStar;
-				XROS_DEPLOYMENT_TARGET = 2.2;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -607,15 +494,6 @@
 			buildConfigurations = (
 				49D4AC6A2DE5AC4900C32233 /* Debug */,
 				49D4AC6B2DE5AC4900C32233 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		49D4AC6C2DE5AC4900C32233 /* Build configuration list for PBXNativeTarget "RickStarUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				49D4AC6D2DE5AC4900C32233 /* Debug */,
-				49D4AC6E2DE5AC4900C32233 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -1,0 +1,29 @@
+name: App tests
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  test:
+    runs-on: macos-15
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Select Xcode version
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '16.3'
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2
+
+      - name: Install fastlane
+        run: gem install fastlane
+
+      - name: Run fastlane tests
+        run: fastlane testsAll
+
+        
